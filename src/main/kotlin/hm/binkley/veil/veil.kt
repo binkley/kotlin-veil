@@ -56,6 +56,8 @@ interface Bob {
     fun foo(): Int
 }
 
-data class RealBob(private val data: DataForBob) : Bob {
+class RealBob(private val data: DataForBob) : Bob {
     override fun foo() = data.x() * 2
+
+    override fun toString() = "RealBob{x=${data.x()}}"
 }
