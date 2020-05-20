@@ -3,7 +3,6 @@ package hm.binkley.veil
 import java.lang.reflect.InvocationHandler
 import java.lang.reflect.Method
 import java.lang.reflect.Proxy.newProxyInstance
-import java.util.Arrays
 
 class InvokeHandler(private val real: Any) : InvocationHandler {
     override fun invoke(
@@ -11,17 +10,8 @@ class InvokeHandler(private val real: Any) : InvocationHandler {
         method: Method,
         args: Array<out Any?>?
     ): Any? {
-        for (fn in real.javaClass.methods) {
-            if (fn.name == method.name && Arrays.equals(
-                    fn.parameterTypes,
-                    method.parameterTypes
-                )
-            ) {
-                return if (args == null) fn.invoke(real)
-                else fn.invoke(real, *args)
-            }
-        }
-        throw UnsupportedOperationException("$method with $args")
+        return if (null == args) method.invoke(real)
+        else method.invoke(real, *args)
     }
 }
 
