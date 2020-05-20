@@ -36,12 +36,16 @@ inline fun <reified T> veil(real: T): T {
 }
 
 fun main() {
-    val real = Bob(3)
-    val bob: Bob = veil(real)
+    val real = RealBob(3)
+    val bob: Bob = veil<Bob>(real)
 
     println(bob)
 }
 
-class Bob(val x: Int) {
-    fun foo() = x * 2
+interface Bob {
+    fun foo(): Int
+}
+
+class RealBob(val x: Int) : Bob {
+    override fun foo() = x * 2
 }
