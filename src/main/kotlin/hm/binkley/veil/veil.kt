@@ -40,16 +40,20 @@ inline fun <reified T, D> veil(
 
 fun main() {
     val data = sequenceOf(
-        object: DataForBob { override fun x() = 2 },
-        object: DataForBob { override fun x() = 3 },
+        object : DataForBob {
+            override val x = 2
+        },
+        object : DataForBob {
+            override val x = 3
+        },
     )
     val bobs = veil<Bob, DataForBob>(::RealBob, data)
 
     bobs.forEach { println(it) }
 }
 
-fun interface DataForBob {
-    fun x(): Int
+interface DataForBob {
+    val x: Int
 }
 
 interface Bob {
@@ -57,7 +61,7 @@ interface Bob {
 }
 
 class RealBob(private val data: DataForBob) : Bob {
-    override fun foo() = data.x() * 2
+    override fun foo() = data.x * 2
 
-    override fun toString() = "RealBob{x=${data.x()}}"
+    override fun toString() = "RealBob{x=${data.x}}"
 }
