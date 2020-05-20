@@ -25,25 +25,37 @@ class InvokeHandler(private val real: Any) : InvocationHandler {
     }
 }
 
-inline fun <reified T> veil(real: T): T {
-    return newProxyInstance(
-        real!!.javaClass.classLoader,
-        arrayOf(T::class.java),
-        InvokeHandler(real)
-    ) as T
+inline fun <reified T, D> veil(
+    crossinline real: (D) -> T,
+    data: Sequence<D>
+): Sequence<T> {
+    return data.map {
+        newProxyInstance(
+            T::class.java.classLoader,
+            arrayOf(T::class.java),
+            InvokeHandler(real.invoke(it)!!)
+        ) as T
+    }
 }
 
 fun main() {
-    val real = RealBob(3)
-    val bob: Bob = veil<Bob>(real)
+    val data = sequenceOf(
+        object: DataForBob { override fun x() = 2 },
+        object: DataForBob { override fun x() = 3 },
+    )
+    val bobs = veil<Bob, DataForBob>(::RealBob, data)
 
-    println(bob)
+    bobs.forEach { println(it) }
+}
+
+fun interface DataForBob {
+    fun x(): Int
 }
 
 interface Bob {
     fun foo(): Int
 }
 
-data class RealBob(val x: Int) : Bob {
-    override fun foo() = x * 2
+data class RealBob(private val data: DataForBob) : Bob {
+    override fun foo() = data.x() * 2
 }
