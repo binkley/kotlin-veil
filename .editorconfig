@@ -1,0 +1,3 @@
+[*.{kt,kts}]
+# Oh, the irony.  IntelliJ insists on sorting java* imports last
+disabled_rules=import-ordering
