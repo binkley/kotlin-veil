@@ -17,10 +17,8 @@ class InvokeHandler(private val real: Any) : InvocationHandler {
                     method.parameterTypes
                 )
             ) {
-                if (args == null)
-                    return fn.invoke(real)
-                else
-                    return fn.invoke(real, *args)
+                return if (args == null) fn.invoke(real)
+                else fn.invoke(real, *args)
             }
         }
         throw UnsupportedOperationException("$method with $args")
@@ -46,6 +44,6 @@ interface Bob {
     fun foo(): Int
 }
 
-class RealBob(val x: Int) : Bob {
+data class RealBob(val x: Int) : Bob {
     override fun foo() = x * 2
 }
