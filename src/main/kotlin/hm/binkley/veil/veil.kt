@@ -59,8 +59,8 @@ class InvokeHandler(
                 println("VEILING -> $key")
                 data[key]
             }
-            null == args -> method.invoke(real)
-            else -> method.invoke(real, *args)
+            null == args -> method(real)
+            else -> method(real, *args)
         }
     }
 }
@@ -70,14 +70,12 @@ inline fun <reified T> veil(
     ds: DataSource,
     data: Sequence<Map<String, Any?>>,
     vararg keys: String
-): Sequence<T> {
-    return data.map {
-        newProxyInstance(
-            T::class.java.classLoader,
-            arrayOf(T::class.java),
-            InvokeHandler(real.invoke(ds, it["id"] as Int)!!, it, *keys)
-        ) as T
-    }
+) = data.map {
+    newProxyInstance(
+        T::class.java.classLoader,
+        arrayOf(T::class.java),
+        InvokeHandler(real(ds, it["id"] as Int)!!, it, *keys)
+    ) as T
 }
 
 interface Bob {
@@ -98,5 +96,5 @@ class RealBob(private val ds: DataSource, val id: Int) : Bob {
 
     override fun hashCode() = Objects.hash(this::class, id)
 
-    override fun toString() = "RealBob{x=${x()}, y=${y()}}"
+    override fun toString() = "RealBob($id){x=${x()}, y=${y()}}"
 }
