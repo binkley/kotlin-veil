@@ -25,10 +25,6 @@ class Veiler(
     private val keys = _keys
     private var pierced = false
 
-    init {
-        println("HANDLER -> ${keys.contentToString()}$data")
-    }
-
     override fun invoke(
         proxy: Any,
         method: Method,
