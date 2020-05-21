@@ -6,6 +6,7 @@ fun main() {
 
     bobs.forEach {
         println("VEILED: Bob{x=${it.x}, y=${it.y}}")
+        println("PIERCED: Bob{x=${it.x}, y=${it.y}}")
         println("REAL: $it")
     }
 }

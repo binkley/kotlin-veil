@@ -23,6 +23,7 @@ class Veiler(
     vararg _keys: String
 ) : InvocationHandler {
     private val keys = _keys
+    private var pierced = false
 
     init {
         println("HANDLER -> ${keys.contentToString()}$data")
@@ -34,10 +35,12 @@ class Veiler(
         args: Array<out Any?>?
     ): Any? {
         val key = prop(method.name)
-        if (key in keys) {
+        if (!pierced && key in keys) {
             println("VEILING -> ${method.name}=${data[key]}")
             return data[key]
         }
+
+        pierced = true
 
         println("CALLING ON ${real::class.simpleName} -> ${method.name}")
         return if (args == null) method(real)
