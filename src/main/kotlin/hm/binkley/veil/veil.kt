@@ -43,8 +43,7 @@ class Veiler(
         }
 
         println("CALLING ${real::class.simpleName}.${method.name}")
-        return if (args == null) method(real)
-        else method(real, *args)
+        return method(real, *(args ?: arrayOf())) // Not nice syntax
     }
 }
 
