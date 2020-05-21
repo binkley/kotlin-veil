@@ -4,25 +4,26 @@ import java.lang.reflect.InvocationHandler
 import java.lang.reflect.Method
 import java.lang.reflect.Proxy.newProxyInstance
 
-inline fun <reified T> veil(
-    crossinline real: (DataSource, Int) -> T,
+inline fun <reified T, ID> veil(
+    crossinline realCtor: (DataSource, ID) -> T,
     ds: DataSource,
-    data: Sequence<Map<String, Any?>>,
+    initialData: Sequence<Map<String, Any?>>,
+    idProp: String,
     vararg veiledProps: String
-) = data.map {
+) = initialData.map {
+    @Suppress("UNCHECKED_CAST")
     newProxyInstance(
         T::class.java.classLoader,
         arrayOf(T::class.java),
-        Veiler(real(ds, it["id"] as Int)!!, it, *veiledProps)
+        Veiler(realCtor(ds, it[idProp] as ID)!!, it, *veiledProps)
     ) as T
 }
 
 class Veiler(
     private val real: Any,
     private val data: Map<String, Any?>,
-    vararg _veiledProps: String
+    private vararg val veiledProps: String
 ) : InvocationHandler {
-    private val veiledProps = _veiledProps
     private var pierced = false
 
     override fun invoke(
