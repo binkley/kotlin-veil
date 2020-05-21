@@ -4,7 +4,7 @@ fun main() {
     val ds = FakeDataSource()
     val initialData = ds.fetch("SELECT *")
     val bobs = veil<Bob, Int>(
-        realCtor = ::RealBob,
+        ctorOfReal = ::RealBob,
         ds = ds,
         initialData = initialData,
         idProp = "id",

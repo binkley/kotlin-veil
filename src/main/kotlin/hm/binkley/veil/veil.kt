@@ -5,7 +5,7 @@ import java.lang.reflect.Method
 import java.lang.reflect.Proxy.newProxyInstance
 
 inline fun <reified T, ID> veil(
-    crossinline realCtor: (DataSource, ID) -> T,
+    crossinline ctorOfReal: (DataSource, ID) -> T,
     ds: DataSource,
     initialData: Sequence<Map<String, Any?>>,
     idProp: String,
@@ -15,7 +15,7 @@ inline fun <reified T, ID> veil(
     newProxyInstance(
         T::class.java.classLoader,
         arrayOf(T::class.java),
-        Veiler(realCtor(ds, it[idProp] as ID)!!, it, *veiledProps)
+        Veiler(ctorOfReal(ds, it[idProp] as ID)!!, it, *veiledProps)
     ) as T
 }
 
