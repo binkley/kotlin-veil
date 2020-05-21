@@ -20,9 +20,9 @@ inline fun <reified T> veil(
 class Veiler(
     private val real: Any,
     private val data: Map<String, Any?>,
-    vararg veiledProps: String
+    vararg _veiledProps: String
 ) : InvocationHandler {
-    private val keys = veiledProps
+    private val veiledProps = _veiledProps
     private var pierced = false
 
     override fun invoke(
@@ -30,10 +30,10 @@ class Veiler(
         method: Method,
         args: Array<out Any?>?
     ): Any? {
-        val key = prop(method.name)
-        if (!pierced && key in keys) {
-            println("VEILING -> ${method.name}=${data[key]}")
-            return data[key]
+        val prop = prop(method.name)
+        if (!pierced && prop in veiledProps) {
+            println("VEILING -> ${method.name}=${data[prop]}")
+            return data[prop]
         }
 
         if (!pierced) {
@@ -41,7 +41,7 @@ class Veiler(
             pierced = true
         }
 
-        println("CALLING ON ${real::class.simpleName} -> ${method.name}")
+        println("CALLING ${real::class.simpleName}.${method.name}")
         return if (args == null) method(real)
         else method(real, *args)
     }

@@ -16,7 +16,6 @@ class RealBob(private val ds: DataSource, val id: Int) : Bob {
             id == other.id
 
     override fun hashCode() = hash(this::class, id)
-
     override fun toString() = "RealBob($id){x=$x, y=$y}"
 }
 
