@@ -5,11 +5,11 @@ import java.lang.reflect.Method
 import java.lang.reflect.Proxy.newProxyInstance
 
 inline fun <reified T, ID> veil(
-    crossinline ctorOfReal: (DataSource, ID) -> T,
     ds: DataSource,
     initialData: Sequence<Map<String, Any?>>,
     idProp: String,
-    vararg veiledProps: String
+    vararg veiledProps: String,
+    crossinline ctorOfReal: (DataSource, ID) -> T
 ) = initialData.map {
     @Suppress("UNCHECKED_CAST")
     newProxyInstance(

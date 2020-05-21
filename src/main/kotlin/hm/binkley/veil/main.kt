@@ -1,15 +1,16 @@
 package hm.binkley.veil
 
 fun main() {
-    val ds = FakeDataSource()
-    val initialData = ds.fetch("SELECT *")
+    val fakeDs = FakeDataSource()
+    val initialData = fakeDs.fetch("SELECT *")
     val bobs = veil<Bob, Int>(
-        ctorOfReal = ::RealBob,
-        ds = ds,
+        ds = fakeDs,
         initialData = initialData,
         idProp = "id",
         "x"
-    )
+    ) { ds, id ->
+        RealBob(ds, id)
+    }
 
     bobs.forEach {
         println()
