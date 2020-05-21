@@ -9,7 +9,10 @@ fun main() {
     val ds = DataSource()
     val bobs = veil<Bob>(::RealBob, ds, ds.fetch("SELECT *"), "x")
 
-    bobs.forEach { println(it) }
+    bobs.forEach {
+        println("VEILED: Bob{x=${it.x()}, y=${it.y()}}")
+        println("REAL: $it")
+    }
 }
 
 class DataSource {
@@ -19,11 +22,13 @@ class DataSource {
             "SELECT *" -> sequenceOf(
                 mapOf(
                     "id" to 1,
-                    "x" to 2
+                    "x" to 2,
+                    "y" to "apple"
                 ),
                 mapOf(
                     "id" to 2,
-                    "x" to 3
+                    "x" to 3,
+                    "y" to "banana"
                 )
             )
             "SELECT x WHERE ID = :id" -> when (a[0]) {
@@ -48,15 +53,20 @@ class InvokeHandler(
 ) : InvocationHandler {
     private val keys = _keys
 
+    init {
+        println("HANDLER -> ${keys.contentToString()}$data")
+    }
+
     override fun invoke(
         proxy: Any,
         method: Method,
         args: Array<out Any?>?
     ): Any? {
         val key = method.name
+        println("CALLING -> $key")
         return when {
             key in keys -> {
-                println("VEILING -> $key")
+                println("VEILING -> $key=${data[key]}")
                 data[key]
             }
             null == args -> method(real)
