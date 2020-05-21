@@ -8,21 +8,21 @@ inline fun <reified T> veil(
     crossinline real: (DataSource, Int) -> T,
     ds: DataSource,
     data: Sequence<Map<String, Any?>>,
-    vararg keys: String
+    vararg veiledProps: String
 ) = data.map {
     newProxyInstance(
         T::class.java.classLoader,
         arrayOf(T::class.java),
-        Veiler(real(ds, it["id"] as Int)!!, it, *keys)
+        Veiler(real(ds, it["id"] as Int)!!, it, *veiledProps)
     ) as T
 }
 
 class Veiler(
     private val real: Any,
     private val data: Map<String, Any?>,
-    vararg _keys: String
+    vararg veiledProps: String
 ) : InvocationHandler {
-    private val keys = _keys
+    private val keys = veiledProps
     private var pierced = false
 
     override fun invoke(
