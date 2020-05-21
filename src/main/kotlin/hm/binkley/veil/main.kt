@@ -13,7 +13,7 @@ fun main() {
 
     bobs.forEach {
         println()
-        println("==")
+        println("== Read veiled, then pierced, then underlying real object")
         println("VEILED: Bob{x=${it.x}, y=${it.y}}")
         println()
         println("PIERCED: Bob{x=${it.x}, y=${it.y}}")
