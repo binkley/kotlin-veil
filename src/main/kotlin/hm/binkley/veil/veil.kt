@@ -36,7 +36,10 @@ class Veiler(
             return data[key]
         }
 
-        pierced = true
+        if (!pierced) {
+            println("PIERCING VEIL")
+            pierced = true
+        }
 
         println("CALLING ON ${real::class.simpleName} -> ${method.name}")
         return if (args == null) method(real)
