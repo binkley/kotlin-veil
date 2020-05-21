@@ -18,6 +18,6 @@ fun main() {
         println()
         println("PIERCED: Bob{x=${it.x}, y=${it.y}}")
         println()
-        println("REAL: $it")
+        println("REAL: $it") // Relies on "toString" forwarding to real obj
     }
 }
