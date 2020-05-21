@@ -9,4 +9,18 @@
 [![Public Domain](https://img.shields.io/badge/license-Public%20Domain-blue.svg)](http://unlicense.org/)
 [![made with kotlin](https://img.shields.io/badge/made%20with-Kotlin-1f425f.svg)](https://kotlinlang.org/)
 
-See [_Veil Objects to Replace DTOs_](https://www.yegor256.com/2020/05/19/veil-objects.html)
+A Kotlin demonstration of Yegor's "veiled objects"
+
+See [_Veil Objects to Replace DTOs_](https://www.yegor256.com/2020/05/19/veil-objects.html).
+
+## Notes
+
+As this code is a demonstration, it comes with caveats:
+
+- Data rows representing objects each has a unique "id" key
+- The code does not use an actual database, rather a "fake" data source
+- Implementation uses JDK proxies
+- The code demonstrates "piercing the veil"
+
+One might say, "Use an ORM"!  The point of veiled objects is lighter-weight
+code without the complexity of an ORM.
