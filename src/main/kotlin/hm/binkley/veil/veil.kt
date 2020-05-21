@@ -6,17 +6,23 @@ import java.lang.reflect.Proxy.newProxyInstance
 import java.util.Objects
 
 fun main() {
-    val ds = DataSource()
+    val ds = FakeDataSource()
     val bobs = veil<Bob>(::RealBob, ds, ds.fetch("SELECT *"), "x")
 
     bobs.forEach {
-        println("VEILED: Bob{x=${it.x()}, y=${it.y()}}")
+        println("VEILED: Bob{x=${it.x}, y=${it.y}}")
         println("REAL: $it")
     }
 }
 
-class DataSource {
-    fun fetch(q: String, vararg a: Any?): Sequence<Map<String, Any>> {
+interface DataSource {
+    fun fetch(q: String, vararg a: Any?): Sequence<Map<String, Any?>>
+}
+
+class FakeDataSource : DataSource {
+    override fun fetch(
+        q: String, vararg a: Any?
+    ): Sequence<Map<String, Any?>> {
         println("FETCHING${a.contentToString()} -> $q")
         return when (q) {
             "SELECT *" -> sequenceOf(
@@ -46,7 +52,12 @@ class DataSource {
     }
 }
 
-class InvokeHandler(
+private fun prop(methodName: String) =
+    if (methodName.startsWith("get"))
+        methodName.removePrefix("get").decapitalize()
+    else methodName
+
+class Veiler(
     private val real: Any,
     private val data: Map<String, Any?>,
     vararg _keys: String
@@ -62,16 +73,15 @@ class InvokeHandler(
         method: Method,
         args: Array<out Any?>?
     ): Any? {
-        val key = method.name
-        println("CALLING -> $key")
-        return when {
-            key in keys -> {
-                println("VEILING -> $key=${data[key]}")
-                data[key]
-            }
-            null == args -> method(real)
-            else -> method(real, *args)
+        val key = prop(method.name)
+        if (key in keys) {
+            println("VEILING -> ${method.name}=${data[key]}")
+            return data[key]
         }
+
+        println("CALLING ON ${real::class.simpleName} -> ${method.name}")
+        return if (args == null) method(real)
+        else method(real, *args)
     }
 }
 
@@ -84,21 +94,23 @@ inline fun <reified T> veil(
     newProxyInstance(
         T::class.java.classLoader,
         arrayOf(T::class.java),
-        InvokeHandler(real(ds, it["id"] as Int)!!, it, *keys)
+        Veiler(real(ds, it["id"] as Int)!!, it, *keys)
     ) as T
 }
 
 interface Bob {
-    fun x(): Int
-    fun y(): String?
+    val x: Int
+    val y: String?
 }
 
 class RealBob(private val ds: DataSource, val id: Int) : Bob {
-    override fun x(): Int =
-        ds.fetch("SELECT x WHERE ID = :id", id).first()["x"] as Int
+    override val x: Int
+        get() =
+            ds.fetch("SELECT x WHERE ID = :id", id).first()["x"] as Int
 
-    override fun y(): String? =
-        ds.fetch("SELECT y WHERE ID = :id", id).first()["y"] as String?
+    override val y: String?
+        get() =
+            ds.fetch("SELECT y WHERE ID = :id", id).first()["y"] as String?
 
     override fun equals(other: Any?) = this === other ||
             other is RealBob &&
@@ -106,5 +118,5 @@ class RealBob(private val ds: DataSource, val id: Int) : Bob {
 
     override fun hashCode() = Objects.hash(this::class, id)
 
-    override fun toString() = "RealBob($id){x=${x()}, y=${y()}}"
+    override fun toString() = "RealBob($id){x=$x, y=$y}"
 }
