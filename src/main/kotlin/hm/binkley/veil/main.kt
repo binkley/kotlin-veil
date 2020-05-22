@@ -3,7 +3,7 @@ package hm.binkley.veil
 fun main() {
     NOISY = true
 
-    val fakeDs = FakeDataSource()
+    val fakeDs = FakeDataSource(2, "apple")
     val initialData = fakeDs.fetch("SELECT *")
     val bobs = veil<Bob, Int>(
         ds = fakeDs,
@@ -13,6 +13,8 @@ fun main() {
     ) { ds, id ->
         RealBob(ds, id)
     }
+
+    fakeDs.rowOneX = 222 // Data change since initial read
 
     bobs.forEach {
         println()
