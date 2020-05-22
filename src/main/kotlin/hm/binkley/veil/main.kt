@@ -1,6 +1,8 @@
 package hm.binkley.veil
 
 fun main() {
+    NOISY = true
+
     val fakeDs = FakeDataSource()
     val initialData = fakeDs.fetch("SELECT *")
     val bobs = veil<Bob, Int>(

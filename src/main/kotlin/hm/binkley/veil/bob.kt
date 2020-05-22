@@ -20,5 +20,5 @@ class RealBob(private val ds: DataSource, val id: Int) : Bob {
 }
 
 @Suppress("UNCHECKED_CAST")
-private fun <T> DataSource.fetchProperty(id: Int, prop: String): T =
+private fun <T, ID> DataSource.fetchProperty(id: ID, prop: String): T =
     fetch("SELECT $prop WHERE ID = :id", id).first()[prop] as T
