@@ -1,5 +1,3 @@
-/.batect/
 /.idea/
 /*.iml
-/.maven-cache
 /target/
