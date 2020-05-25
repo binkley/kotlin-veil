@@ -3,7 +3,7 @@ package hm.binkley.veil
 fun main() {
     NOISY = true
 
-    val fakeDs = FakeDataSource(2, "apple")
+    val fakeDs = FakeBobDataSource(2, "apple")
     val initialData = fakeDs.fetch("SELECT * FROM Bob")
     val pierceableBobs = veil<Bob, Int>(
         pierceable = true,

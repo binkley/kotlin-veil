@@ -24,33 +24,3 @@ internal fun <T, ID> DataSource.fetchProperty(
     prop: String
 ): T =
     fetch("SELECT $prop FROM $table WHERE ID = :id", id).first()[prop] as T
-
-class FakeDataSource(
-    var rowOneA: Int,
-    private val rowOneY: String?
-) : DataSource {
-    override fun fetch(
-        query: String,
-        vararg args: Any?
-    ): Sequence<Map<String, Any?>> {
-        println("FETCHING${args.contentToString()} -> $query")
-        return when (query) {
-            "SELECT * FROM Bob" -> sequenceOf(
-                mapOf(
-                    "id" to 1,
-                    "a" to rowOneA,
-                    "b" to rowOneY
-                )
-            )
-            "SELECT a FROM Bob WHERE ID = :id" -> when (args[0]) {
-                1 -> sequenceOf(mapOf("a" to rowOneA))
-                else -> sequenceOf(mapOf())
-            }
-            "SELECT b FROM Bob WHERE ID = :id" -> when (args[0]) {
-                1 -> sequenceOf(mapOf("b" to rowOneY))
-                else -> sequenceOf(mapOf())
-            }
-            else -> error("Unknown: $query")
-        }
-    }
-}
