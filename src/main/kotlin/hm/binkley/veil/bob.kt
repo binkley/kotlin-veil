@@ -31,9 +31,13 @@ class RealBob(private val ds: DataSource, val id: Int) : Bob {
     override fun toString() = "RealBob($id){a=$a, b=$b}"
 }
 
+internal const val SELECT_ALL_BOBS = "SELECT * FROM Bob"
+internal const val SELECT_BOB_A = "SELECT a FROM Bob WHERE ID = :id"
+internal const val SELECT_BOB_B = "SELECT b FROM Bob WHERE ID = :id"
+
 class FakeBobDataSource(
     var rowOneA: Int,
-    private val rowOneY: String?
+    private val rowOneB: String?
 ) : DataSource {
     override fun fetch(
         query: String,
@@ -41,19 +45,19 @@ class FakeBobDataSource(
     ): Sequence<Map<String, Any?>> {
         println("FETCHING${args.contentToString()} -> $query")
         return when (query) {
-            "SELECT * FROM Bob" -> sequenceOf(
+            SELECT_ALL_BOBS -> sequenceOf(
                 mapOf(
                     "id" to 1,
                     "a" to rowOneA,
-                    "b" to rowOneY
+                    "b" to rowOneB
                 )
             )
-            "SELECT a FROM Bob WHERE ID = :id" -> when (args[0]) {
+            SELECT_BOB_A -> when (args[0]) {
                 1 -> sequenceOf(mapOf("a" to rowOneA))
                 else -> sequenceOf(mapOf())
             }
-            "SELECT b FROM Bob WHERE ID = :id" -> when (args[0]) {
-                1 -> sequenceOf(mapOf("b" to rowOneY))
+            SELECT_BOB_B -> when (args[0]) {
+                1 -> sequenceOf(mapOf("b" to rowOneB))
                 else -> sequenceOf(mapOf())
             }
             else -> error("Unknown: $query")

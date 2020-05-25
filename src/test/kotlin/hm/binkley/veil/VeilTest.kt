@@ -51,20 +51,13 @@ internal class VeilTest {
     }
 }
 
-fun pierceableBobs(fakeDs: DataSource) = veil<Bob, Int>(
-    pierceable = true,
-    ds = fakeDs,
-    initialData = fakeDs.fetch("SELECT * FROM Bob"),
-    idProp = "id",
-    "a"
-) { ds, id ->
-    RealBob(ds, id)
-}
+private fun pierceableBobs(fakeDs: DataSource) = bobs(true, fakeDs)
+private fun unpierceableBobs(fakeDs: DataSource) = bobs(false, fakeDs)
 
-fun unpierceableBobs(fakeDs: DataSource) = veil<Bob, Int>(
-    pierceable = false,
+private fun bobs(pierceable: Boolean, fakeDs: DataSource) = veil<Bob, Int>(
+    pierceable = pierceable,
     ds = fakeDs,
-    initialData = fakeDs.fetch("SELECT * FROM Bob"),
+    initialData = fakeDs.fetch(SELECT_ALL_BOBS),
     idProp = "id",
     "a"
 ) { ds, id ->

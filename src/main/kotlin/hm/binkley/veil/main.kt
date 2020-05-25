@@ -4,25 +4,9 @@ fun main() {
     NOISY = true
 
     val fakeDs = FakeBobDataSource(2, "apple")
-    val initialData = fakeDs.fetch("SELECT * FROM Bob")
-    val pierceableBobs = veil<Bob, Int>(
-        pierceable = true,
-        ds = fakeDs,
-        initialData = initialData,
-        idProp = "id",
-        "a"
-    ) { ds, id ->
-        RealBob(ds, id)
-    }
-    val unpierceableBobs = veil<Bob, Int>(
-        pierceable = false,
-        ds = fakeDs,
-        initialData = initialData,
-        idProp = "id",
-        "a"
-    ) { ds, id ->
-        RealBob(ds, id)
-    }
+    val initialData = fakeDs.fetch(SELECT_ALL_BOBS)
+    val pierceableBobs = pierceableBobs(fakeDs, initialData)
+    val unpierceableBobs = unpierceableBobs(fakeDs, initialData)
 
     fakeDs.rowOneA = 222 // Data change since initial read
 
@@ -32,6 +16,33 @@ fun main() {
     unpierceableBobs.forEach {
         dumpVeiled(it, false)
     }
+}
+
+private fun pierceableBobs(
+    fakeDs: FakeBobDataSource,
+    initialData: Sequence<Map<String, Any?>>
+) = bobs(true, fakeDs, initialData)
+
+private fun unpierceableBobs(
+    fakeDs: FakeBobDataSource,
+    initialData: Sequence<Map<String, Any?>>
+) = bobs(false, fakeDs, initialData)
+
+private fun bobs(
+    pierceable: Boolean,
+    fakeDs: FakeBobDataSource,
+    initialData: Sequence<Map<String, Any?>>
+): Sequence<Bob> {
+    val pierceableBobs = veil<Bob, Int>(
+        pierceable = pierceable,
+        ds = fakeDs,
+        initialData = initialData,
+        idProp = "id",
+        "a"
+    ) { ds, id ->
+        RealBob(ds, id)
+    }
+    return pierceableBobs
 }
 
 private fun dumpVeiled(it: Bob, pierceable: Boolean) {
