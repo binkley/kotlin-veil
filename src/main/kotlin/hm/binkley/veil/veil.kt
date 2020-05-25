@@ -5,6 +5,7 @@ import java.lang.reflect.Method
 import java.lang.reflect.Proxy.newProxyInstance
 
 inline fun <reified T, ID> veil(
+    pierceable: Boolean,
     ds: DataSource,
     initialData: Sequence<Map<String, Any?>>,
     idProp: String,
@@ -15,17 +16,19 @@ inline fun <reified T, ID> veil(
     newProxyInstance(
         T::class.java.classLoader,
         arrayOf(T::class.java),
-        veiler(ctorOfReal(ds, it[idProp] as ID)!!, it, *veiledProps)
+        veiler(pierceable, ctorOfReal(ds, it[idProp] as ID)!!, it, *veiledProps)
     ) as T
 }
 
 fun veiler(
+    pierceable: Boolean,
     real: Any,
     data: Map<String, Any?>,
     vararg veiledProps: String
-): InvocationHandler = Veiler(real, data, *veiledProps)
+): InvocationHandler = Veiler(pierceable, real, data, *veiledProps)
 
 private class Veiler(
+    private val pierceable: Boolean = false,
     private val real: Any,
     private val data: Map<String, Any?>,
     private vararg val veiledProps: String
@@ -43,7 +46,7 @@ private class Veiler(
             return data[prop]
         }
 
-        if (!pierced) {
+        if (pierceable && !pierced) {
             println("PIERCING VEIL")
             pierced = true
         }

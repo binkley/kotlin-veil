@@ -8,7 +8,7 @@ internal class VeilTest {
     fun `should veil first time`() {
         val veiledRowOneA = 2
         val fakeDs = FakeDataSource(veiledRowOneA, "apple")
-        val bobs = bobs(fakeDs)
+        val bobs = pierceableBobs(fakeDs)
 
         assertEquals(veiledRowOneA, bobs.first().a)
     }
@@ -18,7 +18,7 @@ internal class VeilTest {
         val veiledRowOneA = 2
         val piercedRowOneA = 222
         val fakeDs = FakeDataSource(veiledRowOneA, "apple")
-        val bobs = bobs(fakeDs)
+        val bobs = pierceableBobs(fakeDs)
         val bobOne = bobs.first()
 
         bobOne.b // Pierce the veil
@@ -31,13 +31,38 @@ internal class VeilTest {
     fun `should not veil`() {
         val realRowOneB = "apple"
         val fakeDs = FakeDataSource(2, realRowOneB)
-        val bobs = bobs(fakeDs)
+        val bobs = pierceableBobs(fakeDs)
 
         assertEquals(realRowOneB, bobs.first().b)
     }
+
+    @Test
+    fun `should not pierce second time`() {
+        val veiledRowOneA = 2
+        val piercedRowOneA = 222
+        val fakeDs = FakeDataSource(veiledRowOneA, "apple")
+        val bobs = unpierceableBobs(fakeDs)
+        val bobOne = bobs.first()
+
+        bobOne.b // Pierce the veil
+        fakeDs.rowOneA = piercedRowOneA
+
+        assertEquals(veiledRowOneA, bobOne.a)
+    }
 }
 
-fun bobs(fakeDs: DataSource) = veil<Bob, Int>(
+fun pierceableBobs(fakeDs: DataSource) = veil<Bob, Int>(
+    pierceable = true,
+    ds = fakeDs,
+    initialData = fakeDs.fetch("SELECT * FROM Bob"),
+    idProp = "id",
+    "a"
+) { ds, id ->
+    RealBob(ds, id)
+}
+
+fun unpierceableBobs(fakeDs: DataSource) = veil<Bob, Int>(
+    pierceable = false,
     ds = fakeDs,
     initialData = fakeDs.fetch("SELECT * FROM Bob"),
     idProp = "id",
