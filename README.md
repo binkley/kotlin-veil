@@ -20,7 +20,7 @@ As this code is a demonstration, it comes with caveats:
 - Data rows representing objects each has a unique "id" key
 - The code does not use an actual database, rather a "fake" data source
 - Implementation uses JDK proxies
-- The code demonstrates "piercing the veil"
+- The code demonstrates "piercing the veil" and "unpierceable veils"
 
 One might say, "Use an ORM"!  The point of veiled objects is lighter-weight
 code without the complexity of an ORM.
