@@ -15,11 +15,17 @@ inline fun <reified T, ID> veil(
     newProxyInstance(
         T::class.java.classLoader,
         arrayOf(T::class.java),
-        Veiler(ctorOfReal(ds, it[idProp] as ID)!!, it, *veiledProps)
+        veiler(ctorOfReal(ds, it[idProp] as ID)!!, it, *veiledProps)
     ) as T
 }
 
-class Veiler(
+fun veiler(
+    real: Any,
+    data: Map<String, Any?>,
+    vararg veiledProps: String
+): InvocationHandler = Veiler(real, data, *veiledProps)
+
+private class Veiler(
     private val real: Any,
     private val data: Map<String, Any?>,
     private vararg val veiledProps: String
