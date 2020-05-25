@@ -10,6 +10,9 @@ import java.util.Objects.hash
  * Note that `id` is not a property.  This respects that some implementations
  * may be database rows with an ID, but others could be memory-only test
  * objects.
+ *
+ * Some interesting use cases might arise when mixing objects read from a
+ * database with objects from other sources.
  */
 interface Bob {
     val a: Int
