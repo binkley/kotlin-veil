@@ -4,7 +4,7 @@ fun main() {
     NOISY = true
 
     val fakeDs = FakeDataSource(2, "apple")
-    val initialData = fakeDs.fetch("SELECT *")
+    val initialData = fakeDs.fetch("SELECT * FROM Bob")
     val bobs = veil<Bob, Int>(
         ds = fakeDs,
         initialData = initialData,

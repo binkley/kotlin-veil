@@ -8,8 +8,8 @@ interface Bob {
 }
 
 class RealBob(private val ds: DataSource, val id: Int) : Bob {
-    override val a: Int get() = ds.fetchProperty(id, "a")
-    override val b: String? get() = ds.fetchProperty(id, "b")
+    override val a: Int get() = ds.fetchProperty("Bob", id, "a")
+    override val b: String? get() = ds.fetchProperty("Bob", id, "b")
 
     override fun equals(other: Any?) = this === other ||
             other is RealBob &&
@@ -20,5 +20,9 @@ class RealBob(private val ds: DataSource, val id: Int) : Bob {
 }
 
 @Suppress("UNCHECKED_CAST")
-private fun <T, ID> DataSource.fetchProperty(id: ID, prop: String): T =
-    fetch("SELECT $prop WHERE ID = :id", id).first()[prop] as T
+private fun <T, ID> DataSource.fetchProperty(
+    table: String,
+    id: ID,
+    prop: String
+): T =
+    fetch("SELECT $prop FROM $table WHERE ID = :id", id).first()[prop] as T

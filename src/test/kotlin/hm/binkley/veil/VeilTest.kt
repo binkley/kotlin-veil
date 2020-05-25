@@ -39,7 +39,7 @@ internal class VeilTest {
 
 fun bobs(fakeDs: DataSource) = veil<Bob, Int>(
     ds = fakeDs,
-    initialData = fakeDs.fetch("SELECT *"),
+    initialData = fakeDs.fetch("SELECT * FROM Bob"),
     idProp = "id",
     "a"
 ) { ds, id ->
