@@ -2,6 +2,15 @@ package hm.binkley.veil
 
 import java.util.Objects.hash
 
+/**
+ * Ideally this would be an abstract class with `equals` and `hashCode`
+ * defined based on values to treat implementations as value objects.  Using
+ * Java proxies, an interface is required rather than an abstract class.
+ *
+ * Note that `id` is not a property.  This respects that some implementations
+ * may be database rows with an ID, but others could be memory-only test
+ * objects.
+ */
 interface Bob {
     val a: Int
     val b: String?
@@ -18,11 +27,3 @@ class RealBob(private val ds: DataSource, val id: Int) : Bob {
     override fun hashCode() = hash(this::class, id)
     override fun toString() = "RealBob($id){a=$a, b=$b}"
 }
-
-@Suppress("UNCHECKED_CAST")
-private fun <T, ID> DataSource.fetchProperty(
-    table: String,
-    id: ID,
-    prop: String
-): T =
-    fetch("SELECT $prop FROM $table WHERE ID = :id", id).first()[prop] as T
