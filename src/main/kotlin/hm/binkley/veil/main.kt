@@ -8,11 +8,19 @@ fun main() {
     val pierceableBobs = pierceableBobs(fakeDs, initialData)
     val unpierceableBobs = unpierceableBobs(fakeDs, initialData)
 
-    fakeDs.rowOneA = 222 // Data change since initial read
+    // Cannot inline `pierceableBobs` or `unpierceableBobs` before the
+    // underlying fake data is updates
+    fakeDs.rowOneA = 222
 
+    println()
+    println("PIERCED")
+    println("-------")
     pierceableBobs.forEach {
         dumpVeiled(it, true)
     }
+    println()
+    println("UNPIERCED")
+    println("---------")
     unpierceableBobs.forEach {
         dumpVeiled(it, false)
     }
