@@ -1,35 +1,35 @@
 package hm.binkley.veil
 
 interface DataSource {
-    fun fetch(q: String, vararg a: Any?): Sequence<Map<String, Any?>>
+    fun fetch(query: String, vararg args: Any?): Sequence<Map<String, Any?>>
 }
 
 class FakeDataSource(
-    var rowOneX: Int,
+    var rowOneA: Int,
     private val rowOneY: String?
 ) : DataSource {
     override fun fetch(
-        q: String,
-        vararg a: Any?
+        query: String,
+        vararg args: Any?
     ): Sequence<Map<String, Any?>> {
-        println("FETCHING${a.contentToString()} -> $q")
-        return when (q) {
+        println("FETCHING${args.contentToString()} -> $query")
+        return when (query) {
             "SELECT *" -> sequenceOf(
                 mapOf(
                     "id" to 1,
-                    "x" to rowOneX,
-                    "y" to rowOneY
+                    "a" to rowOneA,
+                    "b" to rowOneY
                 )
             )
-            "SELECT x WHERE ID = :id" -> when (a[0]) {
-                1 -> sequenceOf(mapOf("x" to rowOneX))
+            "SELECT a WHERE ID = :id" -> when (args[0]) {
+                1 -> sequenceOf(mapOf("a" to rowOneA))
                 else -> sequenceOf(mapOf())
             }
-            "SELECT y WHERE ID = :id" -> when (a[0]) {
-                1 -> sequenceOf(mapOf("y" to rowOneY))
+            "SELECT b WHERE ID = :id" -> when (args[0]) {
+                1 -> sequenceOf(mapOf("b" to rowOneY))
                 else -> sequenceOf(mapOf())
             }
-            else -> error("Unknown: $q")
+            else -> error("Unknown: $query")
         }
     }
 }

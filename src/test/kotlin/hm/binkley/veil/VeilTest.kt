@@ -6,34 +6,34 @@ import org.junit.jupiter.api.Test
 internal class VeilTest {
     @Test
     fun `should veil first time`() {
-        val veiledRowOneX = 2
-        val fakeDs = FakeDataSource(veiledRowOneX, "apple")
+        val veiledRowOneA = 2
+        val fakeDs = FakeDataSource(veiledRowOneA, "apple")
         val bobs = bobs(fakeDs)
 
-        assertEquals(veiledRowOneX, bobs.first().x)
+        assertEquals(veiledRowOneA, bobs.first().a)
     }
 
     @Test
     fun `should pierce second time`() {
-        val veiledRowOneX = 2
-        val piercedRowOneX = 222
-        val fakeDs = FakeDataSource(veiledRowOneX, "apple")
+        val veiledRowOneA = 2
+        val piercedRowOneA = 222
+        val fakeDs = FakeDataSource(veiledRowOneA, "apple")
         val bobs = bobs(fakeDs)
         val bobOne = bobs.first()
 
-        bobOne.y // Pierce the veil
-        fakeDs.rowOneX = piercedRowOneX
+        bobOne.b // Pierce the veil
+        fakeDs.rowOneA = piercedRowOneA
 
-        assertEquals(piercedRowOneX, bobOne.x)
+        assertEquals(piercedRowOneA, bobOne.a)
     }
 
     @Test
     fun `should not veil`() {
-        val realRowOneY = "apple"
-        val fakeDs = FakeDataSource(2, realRowOneY)
+        val realRowOneB = "apple"
+        val fakeDs = FakeDataSource(2, realRowOneB)
         val bobs = bobs(fakeDs)
 
-        assertEquals(realRowOneY, bobs.first().y)
+        assertEquals(realRowOneB, bobs.first().b)
     }
 }
 
@@ -41,7 +41,7 @@ fun bobs(fakeDs: DataSource) = veil<Bob, Int>(
     ds = fakeDs,
     initialData = fakeDs.fetch("SELECT *"),
     idProp = "id",
-    "x"
+    "a"
 ) { ds, id ->
     RealBob(ds, id)
 }

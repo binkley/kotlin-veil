@@ -3,20 +3,20 @@ package hm.binkley.veil
 import java.util.Objects.hash
 
 interface Bob {
-    val x: Int
-    val y: String?
+    val a: Int
+    val b: String?
 }
 
 class RealBob(private val ds: DataSource, val id: Int) : Bob {
-    override val x: Int get() = ds.fetchProperty(id, "x")
-    override val y: String? get() = ds.fetchProperty(id, "y")
+    override val a: Int get() = ds.fetchProperty(id, "a")
+    override val b: String? get() = ds.fetchProperty(id, "b")
 
     override fun equals(other: Any?) = this === other ||
             other is RealBob &&
             id == other.id
 
     override fun hashCode() = hash(this::class, id)
-    override fun toString() = "RealBob($id){x=$x, y=$y}"
+    override fun toString() = "RealBob($id){a=$a, b=$b}"
 }
 
 @Suppress("UNCHECKED_CAST")

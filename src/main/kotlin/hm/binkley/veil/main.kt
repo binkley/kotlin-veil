@@ -9,19 +9,19 @@ fun main() {
         ds = fakeDs,
         initialData = initialData,
         idProp = "id",
-        "x"
+        "a"
     ) { ds, id ->
         RealBob(ds, id)
     }
 
-    fakeDs.rowOneX = 222 // Data change since initial read
+    fakeDs.rowOneA = 222 // Data change since initial read
 
     bobs.forEach {
         println()
         println("== Read veiled, then pierced, then underlying real object")
-        println("VEILED: Bob{x=${it.x}, y=${it.y}}")
+        println("VEILED: Bob{a=${it.a}, b=${it.b}}")
         println()
-        println("PIERCED: Bob{x=${it.x}, y=${it.y}}")
+        println("PIERCED: Bob{a=${it.a}, b=${it.b}}")
         println()
         println("REAL: $it") // Relies on "toString" forwarding to real obj
     }
