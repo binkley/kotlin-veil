@@ -5,7 +5,7 @@ import java.util.Objects.hash
 /**
  * Ideally this would be an abstract class with `equals` and `hashCode`
  * defined based on values to treat implementations as value objects.  Using
- * Java proxies, an interface is required rather than an abstract class.
+ * JDK proxies, an interface is needed rather than an abstract class.
  *
  * Note that `id` is not a property.  This respects that some implementations
  * may be database rows with an ID, but others could be memory-only test
