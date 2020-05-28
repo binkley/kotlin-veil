@@ -8,8 +8,8 @@ fun main() {
     val pierceableBobs = pierceableBobs(fakeDs, initialData)
     val unpierceableBobs = unpierceableBobs(fakeDs, initialData)
 
-    // Cannot inline `pierceableBobs` or `unpierceableBobs` before the
-    // underlying fake data is updates
+    // Cannot inline `pierceableBobs` or `unpierceableBobs` before updating
+    // the underlying fake data
     fakeDs.rowOneA = 222
 
     println()
@@ -55,7 +55,9 @@ private fun bobs(
 
 private fun dumpVeiled(it: Bob, pierceable: Boolean) {
     println()
-    println("== Read veiled, then pierced if $pierceable, then underlying real object")
+    println(
+        "== Read veiled, then pierced if $pierceable, then underlying real object"
+    )
     println("VEILED: Bob{a=${it.a}, b=${it.b}}")
     println()
     println("MAYBE-PIERCED: Bob{a=${it.a}, b=${it.b}}")
