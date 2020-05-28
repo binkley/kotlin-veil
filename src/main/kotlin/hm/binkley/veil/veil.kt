@@ -16,18 +16,23 @@ inline fun <reified T, ID> veil(
     newProxyInstance(
         T::class.java.classLoader,
         arrayOf(T::class.java),
-        veiler(pierceable, ctorOfReal(ds, it[idProp] as ID)!!, it, *veiledProps)
+        Veiler(
+            pierceable,
+            ctorOfReal(ds, it[idProp] as ID)!!,
+            it,
+            *veiledProps
+        )
     ) as T
 }
 
-fun veiler(
-    pierceable: Boolean,
-    real: Any,
-    data: Map<String, Any?>,
-    vararg veiledProps: String
-): InvocationHandler = Veiler(pierceable, real, data, *veiledProps)
-
-private class Veiler(
+/**
+ * NB &mdash; this class cannot be non-public: it is called from an inline
+ * function, so has the access of caller, not the declaration site.  The
+ * calling function needs to be inline to support reified generics, else the
+ * caller would need to pass in a type token.  In general, JDK proxies have
+ * several restrictions like this.
+ */
+class Veiler(
     private val pierceable: Boolean = false,
     private val real: Any,
     private val data: Map<String, Any?>,
