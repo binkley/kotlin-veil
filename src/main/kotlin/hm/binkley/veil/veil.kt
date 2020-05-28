@@ -38,7 +38,7 @@ class Veiler(
     private val data: Map<String, Any?>,
     private vararg val veiledProps: String
 ) : InvocationHandler {
-    var pierced = false
+    private var pierced = false
 
     override fun invoke(
         proxy: Any,
