@@ -7,14 +7,14 @@ private const val veiledRowOneA = 2
 private const val piercedRowOneA = 222
 private const val realRowOneB = "apple"
 
-internal class VeilTest {
-    private val fakeDs = FakeBobDataSource(-1, realRowOneB)
+private val fakeDs = FakeBobDataSource(-1, realRowOneB)
 
+internal class VeilTest {
     @Test
     fun `should veil first time, and stay veiled`() {
         fakeDs.rowOneA = veiledRowOneA
 
-        val bobs = bobs(fakeDs).pierceable
+        val bobs = bobs().pierceable
         // Sequences are not restartable -- TODO: Use List?
         val bobOne = bobs.first()
 
@@ -29,7 +29,7 @@ internal class VeilTest {
     fun `should pierce second time when pierceable`() {
         fakeDs.rowOneA = veiledRowOneA
 
-        val bobs = bobs(fakeDs).pierceable
+        val bobs = bobs().pierceable
         // Sequences are not restartable -- TODO: Use List?
         val bobOne = bobs.first()
 
@@ -41,7 +41,7 @@ internal class VeilTest {
 
     @Test
     fun `should not veil when not veilable`() {
-        val bobs = bobs(fakeDs).pierceable
+        val bobs = bobs().pierceable
         // Sequences are not restartable -- TODO: Use List?
         val bobOne = bobs.first()
 
@@ -52,7 +52,7 @@ internal class VeilTest {
     fun `should not pierce second time when unpierceable`() {
         fakeDs.rowOneA = veiledRowOneA
 
-        val bobs = bobs(fakeDs).unpierceable
+        val bobs = bobs().unpierceable
         // Sequences are not restartable -- TODO: Use List?
         val bobOne = bobs.first()
 
@@ -63,14 +63,11 @@ internal class VeilTest {
     }
 }
 
-private fun bobs(fakeDs: DataSource) = object {
-    val pierceable: Sequence<Bob>
-        get() = bobs(true, fakeDs)
+private fun bobs() = object {
+    val pierceable: Sequence<Bob> get() = bobs(true)
+    val unpierceable: Sequence<Bob> get() = bobs(false)
 
-    val unpierceable: Sequence<Bob>
-        get() = bobs(false, fakeDs)
-
-    private fun bobs(pierceable: Boolean, fakeDs: DataSource) =
+    private fun bobs(pierceable: Boolean) =
         veil<Bob, Int>(
             pierceable = pierceable,
             ds = fakeDs,
