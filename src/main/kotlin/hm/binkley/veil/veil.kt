@@ -56,16 +56,12 @@ class Veiler(
     ): Any? {
         val prop = prop(method.name)
 
-        if (Veilable::class.java == method.declaringClass) {
-            // TODO:
-            return when (prop) {
-                "pierced" -> pierced
-                "veiled" -> !pierced &&
-                        (args?.get(0) as String) in veiledProps
-                else -> error(
-                    "Invocation handler out of sync with Veilable: $method"
-                )
-            }
+        if (Veilable::class.java == method.declaringClass) return when (prop) {
+            "pierced" -> pierced
+            "veiled" -> !pierced && (args?.get(0) as String) in veiledProps
+            else -> error(
+                "Invocation handler out of sync with Veilable: $method"
+            )
         }
 
         if (!pierced && prop in veiledProps) {
