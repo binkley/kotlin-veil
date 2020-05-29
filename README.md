@@ -42,25 +42,31 @@ VEILING -> getA=2
 PIERCING VEIL
 CALLING RealBob.getB
 FETCHING[1] -> SELECT b FROM Bob WHERE ID = :id
-VEILED: Bob{a=2, b=apple}
+CALLING RealBob.getVeiled
+VEILED: Bob{a=2, b=apple, veiled=17}
 
 CALLING RealBob.getA
 FETCHING[1] -> SELECT a FROM Bob WHERE ID = :id
 CALLING RealBob.getB
 FETCHING[1] -> SELECT b FROM Bob WHERE ID = :id
-MAYBE-PIERCED: Bob{a=222, b=apple}
+CALLING RealBob.getVeiled
+MAYBE-PIERCED: Bob{a=222, b=apple, veiled=17}
 
 CALLING RealBob.toString
 FETCHING[1] -> SELECT a FROM Bob WHERE ID = :id
 FETCHING[1] -> SELECT b FROM Bob WHERE ID = :id
-REAL: RealBob(1){a=222, b=apple}
+REAL: RealBob(1){a=222, b=apple, veiled=17}
 
 PIERCED? true
 VEILED-A? false
 VEILED-B? false
+VEILED-VEILED? false
 ```
 Reading an unpierceable object from the database:
 ```
+UNPIERCED
+---------
+
 UNPIERCED
 ---------
 
@@ -68,19 +74,22 @@ UNPIERCED
 VEILING -> getA=2
 CALLING RealBob.getB
 FETCHING[1] -> SELECT b FROM Bob WHERE ID = :id
-VEILED: Bob{a=2, b=apple}
+CALLING RealBob.getVeiled
+VEILED: Bob{a=2, b=apple, veiled=17}
 
 VEILING -> getA=2
 CALLING RealBob.getB
 FETCHING[1] -> SELECT b FROM Bob WHERE ID = :id
-MAYBE-PIERCED: Bob{a=2, b=apple}
+CALLING RealBob.getVeiled
+MAYBE-PIERCED: Bob{a=2, b=apple, veiled=17}
 
 CALLING RealBob.toString
 FETCHING[1] -> SELECT a FROM Bob WHERE ID = :id
 FETCHING[1] -> SELECT b FROM Bob WHERE ID = :id
-REAL: RealBob(1){a=222, b=apple}
+REAL: RealBob(1){a=222, b=apple, veiled=17}
 
 PIERCED? false
 VEILED-A? true
 VEILED-B? false
+VEILED-VEILED? false
 ```
