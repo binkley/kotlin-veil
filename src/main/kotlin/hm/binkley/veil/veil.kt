@@ -31,6 +31,9 @@ inline fun <reified T, ID> veil(
     ) as T
 }
 
+private val Method.`belongs to Veilable`
+    get() = Veilable::class.java == declaringClass
+
 /**
  * NB &mdash; this class cannot be non-public: it is called from an inline
  * function, so has the access of caller, not the declaration site.  The
@@ -53,7 +56,7 @@ class Veiler(
     ): Any? {
         val prop = prop(method.name)
 
-        if (Veilable::class.java == method.declaringClass) return when (prop) {
+        if (method.`belongs to Veilable`) return when (prop) {
             "pierced" -> pierced
             "veiled" -> !pierced &&
                     (args?.get(0) as KProperty1<*, *>).name in veiledProps
@@ -62,19 +65,24 @@ class Veiler(
             )
         }
 
-        if (!pierced && prop in veiledProps) {
+        if (prop.veiled) {
             println("VEILING -> ${method.name}=${data[prop]}")
             return data[prop]
         }
 
-        if (pierceable && !pierced) {
+        if (piercing()) {
             println("PIERCING VEIL")
             pierced = true
         }
 
-        println("CALLING ${real::class.simpleName}.${method.name}")
+        println("CALLING $method")
         return method(real, *(args ?: arrayOf())) // Not nice syntax
     }
+
+    private val String.veiled
+        get() = !pierced && this in veiledProps
+
+    private fun piercing() = pierceable && !pierced
 }
 
 private fun prop(methodName: String) =
