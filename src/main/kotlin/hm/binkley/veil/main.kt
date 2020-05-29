@@ -18,6 +18,7 @@ fun main() {
     pierceableBobs.forEach {
         dumpVeiled(it, true)
     }
+
     println()
     println("UNPIERCED")
     println("---------")
@@ -40,17 +41,14 @@ private fun bobs(
     pierceable: Boolean,
     fakeDs: FakeBobDataSource,
     initialData: Sequence<Map<String, Any?>>
-): Sequence<Bob> {
-    val pierceableBobs = veil<Bob, Int>(
-        pierceable = pierceable,
-        ds = fakeDs,
-        initialData = initialData,
-        idProp = "id",
-        "a"
-    ) { ds, id ->
-        RealBob(ds, id)
-    }
-    return pierceableBobs
+) = veil<Bob, Int>(
+    pierceable = pierceable,
+    ds = fakeDs,
+    initialData = initialData,
+    idProp = "id",
+    "a"
+) { ds, id ->
+    RealBob(ds, id)
 }
 
 private fun dumpVeiled(it: Bob, pierceable: Boolean) {
@@ -63,4 +61,9 @@ private fun dumpVeiled(it: Bob, pierceable: Boolean) {
     println("MAYBE-PIERCED: Bob{a=${it.a}, b=${it.b}}")
     println()
     println("REAL: $it") // Relies on "toString" forwarding to real obj
+    println()
+    it as Veilable
+    println("PIERCED? ${it.pierced}")
+    println("VEILED-A? ${it.veiled("a")}")
+    println("VEILED-B? ${it.veiled("b")}")
 }

@@ -4,6 +4,12 @@ import java.lang.reflect.InvocationHandler
 import java.lang.reflect.Method
 import java.lang.reflect.Proxy.newProxyInstance
 
+interface Veilable {
+    val pierced: Boolean
+
+    fun veiled(prop: String): Boolean
+}
+
 inline fun <reified T, ID> veil(
     pierceable: Boolean,
     ds: DataSource,
@@ -15,7 +21,7 @@ inline fun <reified T, ID> veil(
     @Suppress("UNCHECKED_CAST")
     newProxyInstance(
         T::class.java.classLoader,
-        arrayOf(T::class.java),
+        arrayOf(T::class.java, Veilable::class.java),
         Veiler(
             pierceable,
             ctorOfReal(ds, it[idProp] as ID)!!,
@@ -46,6 +52,18 @@ class Veiler(
         args: Array<out Any?>?
     ): Any? {
         val prop = prop(method.name)
+
+        if (Veilable::class.java == method.declaringClass) {
+            return when (prop) {
+                "pierced" -> pierced
+                "veiled" -> !pierced &&
+                        (args?.get(0) as String) in veiledProps
+                else -> error(
+                    "Invocation handler out of sync with Veilable: $method"
+                )
+            }
+        }
+
         if (!pierced && prop in veiledProps) {
             println("VEILING -> ${method.name}=${data[prop]}")
             return data[prop]
