@@ -28,7 +28,7 @@ internal class VeilTest {
         fakeDs.rowOneA = veiledRowOneA
 
         val bobs = bobs(fakeDs).pierceable
-        // TODO: Why does test fail when not extracting this first?
+        // Sequences are not restartable -- TODO: Use List?
         val bobOne = bobs.first()
 
         fakeDs.rowOneA = piercedRowOneA
@@ -52,7 +52,7 @@ internal class VeilTest {
         fakeDs.rowOneA = veiledRowOneA
 
         val bobs = bobs(fakeDs).unpierceable
-        // TODO: Why does test fail when not extracting this first?
+        // Sequences are not restartable -- TODO: Use List?
         val bobOne = bobs.first()
 
         bobOne.b // Pierce the veil
