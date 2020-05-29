@@ -3,13 +3,15 @@ package hm.binkley.veil
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
+private const val veiledRowOneA = 2
+private const val piercedRowOneA = 222
+private const val realRowOneB = "apple"
+
 internal class VeilTest {
-    private val fakeDs = FakeBobDataSource(-1, "apple")
+    private val fakeDs = FakeBobDataSource(-1, realRowOneB)
 
     @Test
     fun `should veil first time, and stay veiled`() {
-        val veiledRowOneA = 2
-        val piercedRowOneA = 222
         fakeDs.rowOneA = veiledRowOneA
 
         val bobs = bobs(fakeDs).pierceable
@@ -23,8 +25,6 @@ internal class VeilTest {
 
     @Test
     fun `should pierce second time`() {
-        val veiledRowOneA = 2
-        val piercedRowOneA = 222
         fakeDs.rowOneA = veiledRowOneA
 
         val bobs = bobs(fakeDs).pierceable
@@ -32,14 +32,13 @@ internal class VeilTest {
         val bobOne = bobs.first()
 
         fakeDs.rowOneA = piercedRowOneA
-        bobOne.b // Pierce the veil
+        bobOne.b // Pierce the veil with an unveiled property
 
         assertEquals(piercedRowOneA, bobOne.a)
     }
 
     @Test
     fun `should not veil`() {
-        val realRowOneB = "apple"
         val bobs = bobs(fakeDs).pierceable
 
         assertEquals(realRowOneB, bobs.first().b)
@@ -47,8 +46,6 @@ internal class VeilTest {
 
     @Test
     fun `should not pierce second time`() {
-        val veiledRowOneA = 2
-        val piercedRowOneA = 222
         fakeDs.rowOneA = veiledRowOneA
 
         val bobs = bobs(fakeDs).unpierceable
