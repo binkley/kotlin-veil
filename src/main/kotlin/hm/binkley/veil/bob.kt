@@ -15,7 +15,10 @@ import java.util.Objects.hash
  * database with objects from other sources.
  */
 interface Bob {
+    /** Meant to be veiled */
     val a: Int
+
+    /** Meant to not be veiled */
     val b: String?
 }
 

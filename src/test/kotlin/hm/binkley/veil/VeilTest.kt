@@ -5,10 +5,15 @@ import org.junit.jupiter.api.Test
 
 internal class VeilTest {
     @Test
-    fun `should veil first time`() {
+    fun `should veil first time, and stay veiled`() {
         val veiledRowOneA = 2
+        val piercedRowOneA = 222
         val fakeDs = FakeBobDataSource(veiledRowOneA, "apple")
         val bobs = pierceableBobs(fakeDs)
+
+        assertEquals(veiledRowOneA, bobs.first().a)
+
+        fakeDs.rowOneA = piercedRowOneA
 
         assertEquals(veiledRowOneA, bobs.first().a)
     }
@@ -21,8 +26,8 @@ internal class VeilTest {
         val bobs = pierceableBobs(fakeDs)
         val bobOne = bobs.first()
 
-        bobOne.b // Pierce the veil
         fakeDs.rowOneA = piercedRowOneA
+        bobOne.b // Pierce the veil
 
         assertEquals(piercedRowOneA, bobOne.a)
     }
