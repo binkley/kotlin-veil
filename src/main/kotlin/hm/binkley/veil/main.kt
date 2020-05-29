@@ -1,15 +1,13 @@
 package hm.binkley.veil
 
+private val fakeDs = FakeBobDataSource(2, "apple")
+private val initialData = fakeDs.fetch(SELECT_ALL_BOBS)
+private val pierceableBobs = bobs().pierceable
+private val unpierceableBobs = bobs().unpierceable
+
 fun main() {
     NOISY = true
 
-    val fakeDs = FakeBobDataSource(2, "apple")
-    val initialData = fakeDs.fetch(SELECT_ALL_BOBS)
-    val pierceableBobs = bobs(fakeDs, initialData).pierceable
-    val unpierceableBobs = bobs(fakeDs, initialData).unpierceable
-
-    // Cannot inline `pierceableBobs` or `unpierceableBobs` before updating
-    // the underlying fake data
     fakeDs.rowOneA = 222
 
     println()
@@ -27,10 +25,7 @@ fun main() {
     }
 }
 
-private fun bobs(
-    fakeDs: FakeBobDataSource,
-    initialData: Sequence<Map<String, Any?>>
-) = object {
+private fun bobs() = object {
     val pierceable: Sequence<Bob> get() = bobs(true)
     val unpierceable: Sequence<Bob> get() = bobs(false)
 
