@@ -3,14 +3,11 @@ package hm.binkley.veil
 import java.lang.reflect.InvocationHandler
 import java.lang.reflect.Method
 import java.lang.reflect.Proxy.newProxyInstance
+import kotlin.reflect.KProperty1
 
-interface Veilable {
+interface Veilable<T> {
     val pierced: Boolean
-
-    /**
-     * @todo Clever way to restrict this to <T>::prop-ref rather than String
-     */
-    fun veiled(prop: String): Boolean
+    fun veiled(prop: KProperty1<T, *>): Boolean
 }
 
 inline fun <reified T, ID> veil(
@@ -58,7 +55,8 @@ class Veiler(
 
         if (Veilable::class.java == method.declaringClass) return when (prop) {
             "pierced" -> pierced
-            "veiled" -> !pierced && (args?.get(0) as String) in veiledProps
+            "veiled" -> !pierced &&
+                    (args?.get(0) as KProperty1<*, *>).name in veiledProps
             else -> error(
                 "Invocation handler out of sync with Veilable: $method"
             )

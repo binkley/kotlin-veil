@@ -56,14 +56,16 @@ private fun dumpVeiled(it: Bob, pierceable: Boolean) {
     println(
         "== Read veiled, then pierced if $pierceable, then underlying real object"
     )
-    println("VEILED: Bob{a=${it.a}, b=${it.b}}")
+    println("VEILED: Bob{a=${it.a}, b=${it.b}, veiled=${it.veiled}}")
     println()
-    println("MAYBE-PIERCED: Bob{a=${it.a}, b=${it.b}}")
+    println("MAYBE-PIERCED: Bob{a=${it.a}, b=${it.b}, veiled=${it.veiled}}")
     println()
     println("REAL: $it") // Relies on "toString" forwarding to real obj
     println()
-    it as Veilable
+    @Suppress("UNCHECKED_CAST")
+    it as Veilable<Bob>
     println("PIERCED? ${it.pierced}")
-    println("VEILED-A? ${it.veiled("a")}")
-    println("VEILED-B? ${it.veiled("b")}")
+    println("VEILED-A? ${it.veiled(Bob::a)}")
+    println("VEILED-B? ${it.veiled(Bob::b)}")
+    println("VEILED-VEILED? ${it.veiled(Bob::veiled)}")
 }

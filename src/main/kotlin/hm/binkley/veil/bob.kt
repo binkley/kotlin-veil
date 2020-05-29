@@ -20,18 +20,21 @@ interface Bob {
 
     /** Meant to not be veiled */
     val b: String?
+
+    val veiled: Int // TODO: Please break!
 }
 
 class RealBob(private val ds: DataSource, val id: Int) : Bob {
     override val a: Int get() = ds.fetchProperty("Bob", id, "a")
     override val b: String? get() = ds.fetchProperty("Bob", id, "b")
+    override val veiled = 17
 
     override fun equals(other: Any?) = this === other ||
             other is RealBob &&
             id == other.id
 
     override fun hashCode() = hash(this::class, id)
-    override fun toString() = "RealBob($id){a=$a, b=$b}"
+    override fun toString() = "RealBob($id){a=$a, b=$b, veiled=$veiled}"
 }
 
 internal const val SELECT_ALL_BOBS = "SELECT * FROM Bob"

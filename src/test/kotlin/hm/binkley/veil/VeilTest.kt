@@ -61,6 +61,30 @@ internal class VeilTest {
 
         assertEquals(veiledRowOneA, bobOne.a)
     }
+
+    @Test
+    fun `should reflect`() {
+        val bobs = bobs().pierceable
+        // Sequences are not restartable -- TODO: Use List?
+        val bobOne = bobs.first()
+
+        @Suppress("UNCHECKED_CAST")
+        bobOne as Veilable<Bob>
+
+        assertEquals(false, bobOne.pierced)
+        assertEquals(true, bobOne.veiled(Bob::a))
+        assertEquals(false, bobOne.veiled(Bob::b))
+        assertEquals(false, bobOne.veiled(Bob::veiled))
+    }
+
+    @Test
+    fun `should not hide props because of reflection`() {
+        val bobs = bobs().unpierceable
+        // Sequences are not restartable -- TODO: Use List?
+        val bobOne = bobs.first()
+
+        assertEquals(17, bobOne.veiled)
+    }
 }
 
 private fun bobs() = object {
