@@ -7,6 +7,9 @@ import java.lang.reflect.Proxy.newProxyInstance
 interface Veilable {
     val pierced: Boolean
 
+    /**
+     * @todo Clever way to restrict this to <T>::prop-ref rather than String
+     */
     fun veiled(prop: String): Boolean
 }
 
@@ -54,6 +57,7 @@ class Veiler(
         val prop = prop(method.name)
 
         if (Veilable::class.java == method.declaringClass) {
+            // TODO:
             return when (prop) {
                 "pierced" -> pierced
                 "veiled" -> !pierced &&
