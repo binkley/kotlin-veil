@@ -5,8 +5,8 @@ fun main() {
 
     val fakeDs = FakeBobDataSource(2, "apple")
     val initialData = fakeDs.fetch(SELECT_ALL_BOBS)
-    val pierceableBobs = pierceableBobs(fakeDs, initialData)
-    val unpierceableBobs = unpierceableBobs(fakeDs, initialData)
+    val pierceableBobs = bobs(fakeDs, initialData).pierceable
+    val unpierceableBobs = bobs(fakeDs, initialData).unpierceable
 
     // Cannot inline `pierceableBobs` or `unpierceableBobs` before updating
     // the underlying fake data
@@ -27,28 +27,23 @@ fun main() {
     }
 }
 
-private fun pierceableBobs(
-    fakeDs: FakeBobDataSource,
-    initialData: Sequence<Map<String, Any?>>
-) = bobs(true, fakeDs, initialData)
-
-private fun unpierceableBobs(
-    fakeDs: FakeBobDataSource,
-    initialData: Sequence<Map<String, Any?>>
-) = bobs(false, fakeDs, initialData)
-
 private fun bobs(
-    pierceable: Boolean,
     fakeDs: FakeBobDataSource,
     initialData: Sequence<Map<String, Any?>>
-) = veil<Bob, Int>(
-    pierceable = pierceable,
-    ds = fakeDs,
-    initialData = initialData,
-    idProp = "id",
-    "a"
-) { ds, id ->
-    RealBob(ds, id)
+) = object {
+    val pierceable: Sequence<Bob> get() = bobs(true)
+    val unpierceable: Sequence<Bob> get() = bobs(false)
+
+    private fun bobs(pierceable: Boolean) =
+        veil<Bob, Int>(
+            pierceable = pierceable,
+            ds = fakeDs,
+            initialData = initialData,
+            idProp = "id",
+            "a"
+        ) { ds, id ->
+            RealBob(ds, id)
+        }
 }
 
 private fun dumpVeiled(it: Bob, pierceable: Boolean) {
