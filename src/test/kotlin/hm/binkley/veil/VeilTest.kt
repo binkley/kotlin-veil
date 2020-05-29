@@ -20,13 +20,13 @@ internal class VeilTest {
 
         assertEquals(veiledRowOneA, bobOne.a)
 
-        fakeDs.rowOneA = piercedRowOneA
+        fakeDs.rowOneA = piercedRowOneA // No effect
 
         assertEquals(veiledRowOneA, bobOne.a)
     }
 
     @Test
-    fun `should pierce second time`() {
+    fun `should pierce second time when pierceable`() {
         fakeDs.rowOneA = veiledRowOneA
 
         val bobs = bobs(fakeDs).pierceable
@@ -40,7 +40,7 @@ internal class VeilTest {
     }
 
     @Test
-    fun `should not veil`() {
+    fun `should not veil when not veilable`() {
         val bobs = bobs(fakeDs).pierceable
         // Sequences are not restartable -- TODO: Use List?
         val bobOne = bobs.first()
@@ -49,7 +49,7 @@ internal class VeilTest {
     }
 
     @Test
-    fun `should not pierce second time`() {
+    fun `should not pierce second time when unpierceable`() {
         fakeDs.rowOneA = veiledRowOneA
 
         val bobs = bobs(fakeDs).unpierceable
