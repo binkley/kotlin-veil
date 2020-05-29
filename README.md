@@ -21,7 +21,9 @@ As this code is a demonstration, it comes with caveats:
 - Implementation uses JDK proxies
 - Data rows representing objects each has a unique "id" key
 - The code demonstrates "piercing the veil" and "unpierceable veils"
-- The code includes primitive means for reflecting on veiledness
+- The code includes primitive means for reflecting on veiledness, via casting
+to a `Veiled<T>`, and using the `pierced` property, or `veiled(prop-ref)`
+function
 
 One might say, "Use an ORM"!  The point of veiled objects is lighter-weight
 code without the complexity of an ORM.
