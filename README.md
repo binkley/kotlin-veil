@@ -32,7 +32,7 @@ Initial data in the fake database:
 ```
 FETCHING[] -> SELECT * FROM Bob
 ```
-Reading a pierceable object from the database:
+Reading a pierceable object from the fake database:
 ```
 PIERCED
 -------
@@ -62,7 +62,7 @@ VEILED-A? false
 VEILED-B? false
 VEILED-VEILED? false
 ```
-Reading an unpierceable object from the database:
+Reading an unpierceable object from the fake database:
 ```
 UNPIERCED
 ---------
