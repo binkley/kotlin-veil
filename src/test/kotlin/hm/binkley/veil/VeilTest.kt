@@ -4,11 +4,14 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
 internal class VeilTest {
+    private val fakeDs = FakeBobDataSource(-1, "apple")
+
     @Test
     fun `should veil first time, and stay veiled`() {
         val veiledRowOneA = 2
         val piercedRowOneA = 222
-        val fakeDs = FakeBobDataSource(veiledRowOneA, "apple")
+        fakeDs.rowOneA = veiledRowOneA
+
         val bobs = bobs(fakeDs).pierceable
 
         assertEquals(veiledRowOneA, bobs.first().a)
@@ -22,8 +25,10 @@ internal class VeilTest {
     fun `should pierce second time`() {
         val veiledRowOneA = 2
         val piercedRowOneA = 222
-        val fakeDs = FakeBobDataSource(veiledRowOneA, "apple")
+        fakeDs.rowOneA = veiledRowOneA
+
         val bobs = bobs(fakeDs).pierceable
+        // TODO: Why does test fail when not extracting this first?
         val bobOne = bobs.first()
 
         fakeDs.rowOneA = piercedRowOneA
@@ -35,7 +40,6 @@ internal class VeilTest {
     @Test
     fun `should not veil`() {
         val realRowOneB = "apple"
-        val fakeDs = FakeBobDataSource(2, realRowOneB)
         val bobs = bobs(fakeDs).pierceable
 
         assertEquals(realRowOneB, bobs.first().b)
@@ -45,8 +49,10 @@ internal class VeilTest {
     fun `should not pierce second time`() {
         val veiledRowOneA = 2
         val piercedRowOneA = 222
-        val fakeDs = FakeBobDataSource(veiledRowOneA, "apple")
+        fakeDs.rowOneA = veiledRowOneA
+
         val bobs = bobs(fakeDs).unpierceable
+        // TODO: Why does test fail when not extracting this first?
         val bobOne = bobs.first()
 
         bobOne.b // Pierce the veil
