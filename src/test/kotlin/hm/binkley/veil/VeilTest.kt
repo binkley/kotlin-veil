@@ -9,7 +9,7 @@ internal class VeilTest {
         val veiledRowOneA = 2
         val piercedRowOneA = 222
         val fakeDs = FakeBobDataSource(veiledRowOneA, "apple")
-        val bobs = pierceableBobs(fakeDs)
+        val bobs = bobs(fakeDs).pierceable
 
         assertEquals(veiledRowOneA, bobs.first().a)
 
@@ -23,7 +23,7 @@ internal class VeilTest {
         val veiledRowOneA = 2
         val piercedRowOneA = 222
         val fakeDs = FakeBobDataSource(veiledRowOneA, "apple")
-        val bobs = pierceableBobs(fakeDs)
+        val bobs = bobs(fakeDs).pierceable
         val bobOne = bobs.first()
 
         fakeDs.rowOneA = piercedRowOneA
@@ -36,7 +36,7 @@ internal class VeilTest {
     fun `should not veil`() {
         val realRowOneB = "apple"
         val fakeDs = FakeBobDataSource(2, realRowOneB)
-        val bobs = pierceableBobs(fakeDs)
+        val bobs = bobs(fakeDs).pierceable
 
         assertEquals(realRowOneB, bobs.first().b)
     }
@@ -46,7 +46,7 @@ internal class VeilTest {
         val veiledRowOneA = 2
         val piercedRowOneA = 222
         val fakeDs = FakeBobDataSource(veiledRowOneA, "apple")
-        val bobs = unpierceableBobs(fakeDs)
+        val bobs = bobs(fakeDs).unpierceable
         val bobOne = bobs.first()
 
         bobOne.b // Pierce the veil
@@ -56,15 +56,21 @@ internal class VeilTest {
     }
 }
 
-private fun pierceableBobs(fakeDs: DataSource) = bobs(true, fakeDs)
-private fun unpierceableBobs(fakeDs: DataSource) = bobs(false, fakeDs)
+private fun bobs(fakeDs: DataSource) = object {
+    val pierceable: Sequence<Bob>
+        get() = bobs(true, fakeDs)
 
-private fun bobs(pierceable: Boolean, fakeDs: DataSource) = veil<Bob, Int>(
-    pierceable = pierceable,
-    ds = fakeDs,
-    initialData = fakeDs.fetch(SELECT_ALL_BOBS),
-    idProp = "id",
-    "a"
-) { ds, id ->
-    RealBob(ds, id)
+    val unpierceable: Sequence<Bob>
+        get() = bobs(false, fakeDs)
+
+    private fun bobs(pierceable: Boolean, fakeDs: DataSource) =
+        veil<Bob, Int>(
+            pierceable = pierceable,
+            ds = fakeDs,
+            initialData = fakeDs.fetch(SELECT_ALL_BOBS),
+            idProp = "id",
+            "a"
+        ) { ds, id ->
+            RealBob(ds, id)
+        }
 }
