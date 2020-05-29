@@ -54,6 +54,10 @@ CALLING RealBob.toString
 FETCHING[1] -> SELECT a FROM Bob WHERE ID = :id
 FETCHING[1] -> SELECT b FROM Bob WHERE ID = :id
 REAL: RealBob(1){a=222, b=apple}
+
+PIERCED? true
+VEILED-A? false
+VEILED-B? false
 ```
 Reading an unpierceable object from the database:
 ```
@@ -75,4 +79,8 @@ CALLING RealBob.toString
 FETCHING[1] -> SELECT a FROM Bob WHERE ID = :id
 FETCHING[1] -> SELECT b FROM Bob WHERE ID = :id
 REAL: RealBob(1){a=222, b=apple}
+
+PIERCED? false
+VEILED-A? true
+VEILED-B? false
 ```
