@@ -11,6 +11,12 @@ fun main() {
     fakeDs.rowOneA = 222
 
     println()
+    println("NOTE: Bob has props: a, b, veiled.")
+    println(
+        "NOTE: Prop veiled is to show that the data value is not masked by Veilable."
+    )
+
+    println()
     println("PIERCED")
     println("-------")
     pierceableBobs.forEach {
@@ -26,8 +32,15 @@ fun main() {
 }
 
 private fun bobs() = object {
-    val pierceable: Sequence<Bob> get() = bobs(true)
-    val unpierceable: Sequence<Bob> get() = bobs(false)
+    /** NB &mdash; IntelliJ incorrectly believes this prop is unused. */
+    @Suppress("unused")
+    val pierceable: Sequence<Bob>
+        get() = bobs(true)
+
+    /** NB &mdash; IntelliJ incorrectly believes this prop is unused. */
+    @Suppress("unused")
+    val unpierceable: Sequence<Bob>
+        get() = bobs(false)
 
     private fun bobs(pierceable: Boolean) =
         veil<Bob, Int>(
@@ -44,7 +57,7 @@ private fun bobs() = object {
 private fun dumpVeiled(it: Bob, pierceable: Boolean) {
     println()
     println(
-        "== Read veiled, then pierced if $pierceable, then underlying real object"
+        "== Read veiled, then pierced if pierceable ($pierceable), then underlying real object"
     )
     println("VEILED: Bob{a=${it.a}, b=${it.b}, veiled=${it.veiled}}")
     println()
@@ -57,5 +70,5 @@ private fun dumpVeiled(it: Bob, pierceable: Boolean) {
     println("PIERCED? ${it.pierced}")
     println("VEILED-A? ${it.veiled(Bob::a)}")
     println("VEILED-B? ${it.veiled(Bob::b)}")
-    println("VEILED-VEILED? ${it.veiled(Bob::veiled)}")
+    println("IS REFLECTIVE VEILED MASKED? ${it.veiled(Bob::veiled)}")
 }
