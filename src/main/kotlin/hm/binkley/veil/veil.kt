@@ -70,7 +70,7 @@ class Veiler(
             return data[prop]
         }
 
-        if (piercing()) {
+        if (piercing) {
             println("PIERCING VEIL")
             pierced = true
         }
@@ -79,10 +79,8 @@ class Veiler(
         return method(real, *(args ?: arrayOf())) // Not nice syntax
     }
 
-    private val String.veiled
-        get() = !pierced && this in veiledProps
-
-    private fun piercing() = pierceable && !pierced
+    private val String.veiled get() = !pierced && this in veiledProps
+    private val piercing get() = pierceable && !pierced
 }
 
 private fun prop(methodName: String) =
