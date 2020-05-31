@@ -35,11 +35,11 @@ private val Method.`belongs to Veilable`
     get() = Veilable::class.java == declaringClass
 
 /**
- * NB &mdash; this class cannot be non-public: it is called from an inline
- * function, so has the access of caller, not the declaration site.  The
- * calling function needs to be inline to support reified generics, else the
- * caller would need to pass in a type token.  In general, JDK proxies have
- * several restrictions like this.
+ * NB &mdash; Access scope is not optimal:
+ * - JDK proxies require class tokens
+ * - [veil] is `inline` so `reified` works, and caller does not need to pass
+ * in a class token for the JDK proxy; the code does it for you
+ * - [Veiler] is public because `veil(...)` is inlined (a Kotlin requirement)
  */
 class Veiler(
     private val pierceable: Boolean = false,
