@@ -31,9 +31,6 @@ inline fun <reified T, ID> veil(
     ) as T
 }
 
-private val Method.`belongs to Veilable`
-    get() = Veilable::class.java == declaringClass
-
 /**
  * NB &mdash; Access scope is not optimal:
  * - JDK proxies require class tokens
@@ -78,6 +75,9 @@ class Veiler(
         println("CALLING $method")
         return method(real, *(args ?: arrayOf())) // Not nice syntax
     }
+
+    private val Method.`belongs to Veilable`
+        get() = Veilable::class.java == declaringClass
 
     private val String.veiled get() = !pierced && this in veiledProps
     private val piercing get() = pierceable && !pierced
