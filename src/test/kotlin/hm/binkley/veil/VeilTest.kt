@@ -1,3 +1,5 @@
+@file:Suppress("RedundantInnerClassModifier") // IntelliJ
+
 package hm.binkley.veil
 
 import org.junit.jupiter.api.Assertions.assertEquals
