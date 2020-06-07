@@ -55,8 +55,7 @@ class Veiler(
 
         if (method.`belongs to Veilable`) return when (prop) {
             "pierced" -> pierced
-            "veiled" -> !pierced &&
-                    (args?.get(0) as KProperty1<*, *>).name in veiledProps
+            "veiled" -> !pierced && argsVeiled(args)
             else -> error(
                 "Invocation handler out of sync with Veilable: $method"
             )
@@ -79,6 +78,12 @@ class Veiler(
     private val Method.`belongs to Veilable`
         get() = Veilable::class.java == declaringClass
 
+    private fun argsVeiled(args: Array<out Any?>?) =
+        (args?.get(0) as KProperty1<*, *>).name in veiledProps
+
+    /**
+     * @todo Cleaner way to combine check for args veiled and the prop itself
+     */
     private val String.veiled get() = !pierced && this in veiledProps
     private val piercing get() = pierceable && !pierced
 }

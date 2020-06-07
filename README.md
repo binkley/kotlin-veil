@@ -5,9 +5,9 @@
 # Kotlin Veil
 
 [![build](https://github.com/binkley/kotlin-veil/workflows/build/badge.svg)](https://github.com/binkley/kotlin-veil/actions)
-[![issues](https://img.shields.io/github/issues/binkley/kotlin-veil.svg)](https://github.com/binkley/kotlin-veil/issues/)
-[![Public Domain](https://img.shields.io/badge/license-Public%20Domain-blue.svg)](http://unlicense.org/)
-[![made with kotlin](https://img.shields.io/badge/made%20with-Kotlin-1f425f.svg)](https://kotlinlang.org/)
+[![issues](https://img.shields.io/github/issues/binkley/kotlin-veil.svg)](https://github.com/binkley/kotlin-veil/issues)
+[![Public Domain](https://img.shields.io/badge/license-Public%20Domain-blue.svg)](http://unlicense.org)
+[![made with kotlin](https://img.shields.io/badge/made%20with-Kotlin-1f425f.svg)](https://kotlinlang.org)
 
 A Kotlin demonstration of Yegor's "veiled objects"
 
@@ -32,31 +32,30 @@ code without the complexity of an ORM.
 
 ## Demonstration
 
-Initial data in the fake database:
+Output of `main` demonstrating veiled, unveiled, and pierced:
 ```
-FETCHING[] -> SELECT * FROM Bob
-```
-Reading a pierceable object from the fake database:
-```
+NOTE: Bob has props: a, b, veiled.
+NOTE: Prop veiled is to show that the data value is not masked by Veilable.
+
 PIERCED
 -------
 
-== Read veiled, then pierced if true, then underlying real object
+== Read veiled, then pierced if pierceable (true), then underlying real object
 VEILING -> getA=2
 PIERCING VEIL
-CALLING RealBob.getB
+CALLING public abstract java.lang.String hm.binkley.veil.Bob.getB()
 FETCHING[1] -> SELECT b FROM Bob WHERE ID = :id
-CALLING RealBob.getVeiled
+CALLING public abstract int hm.binkley.veil.Bob.getVeiled()
 VEILED: Bob{a=2, b=apple, veiled=17}
 
-CALLING RealBob.getA
+CALLING public abstract int hm.binkley.veil.Bob.getA()
 FETCHING[1] -> SELECT a FROM Bob WHERE ID = :id
-CALLING RealBob.getB
+CALLING public abstract java.lang.String hm.binkley.veil.Bob.getB()
 FETCHING[1] -> SELECT b FROM Bob WHERE ID = :id
-CALLING RealBob.getVeiled
+CALLING public abstract int hm.binkley.veil.Bob.getVeiled()
 MAYBE-PIERCED: Bob{a=222, b=apple, veiled=17}
 
-CALLING RealBob.toString
+CALLING public java.lang.String java.lang.Object.toString()
 FETCHING[1] -> SELECT a FROM Bob WHERE ID = :id
 FETCHING[1] -> SELECT b FROM Bob WHERE ID = :id
 REAL: RealBob(1){a=222, b=apple, veiled=17}
@@ -64,30 +63,25 @@ REAL: RealBob(1){a=222, b=apple, veiled=17}
 PIERCED? true
 VEILED-A? false
 VEILED-B? false
-VEILED-VEILED? false
-```
-Reading an unpierceable object from the fake database:
-```
-UNPIERCED
----------
+IS REFLECTIVE VEILED MASKED? false
 
 UNPIERCED
 ---------
 
-== Read veiled, then pierced if false, then underlying real object
+== Read veiled, then pierced if pierceable (false), then underlying real object
 VEILING -> getA=2
-CALLING RealBob.getB
+CALLING public abstract java.lang.String hm.binkley.veil.Bob.getB()
 FETCHING[1] -> SELECT b FROM Bob WHERE ID = :id
-CALLING RealBob.getVeiled
+CALLING public abstract int hm.binkley.veil.Bob.getVeiled()
 VEILED: Bob{a=2, b=apple, veiled=17}
 
 VEILING -> getA=2
-CALLING RealBob.getB
+CALLING public abstract java.lang.String hm.binkley.veil.Bob.getB()
 FETCHING[1] -> SELECT b FROM Bob WHERE ID = :id
-CALLING RealBob.getVeiled
+CALLING public abstract int hm.binkley.veil.Bob.getVeiled()
 MAYBE-PIERCED: Bob{a=2, b=apple, veiled=17}
 
-CALLING RealBob.toString
+CALLING public java.lang.String java.lang.Object.toString()
 FETCHING[1] -> SELECT a FROM Bob WHERE ID = :id
 FETCHING[1] -> SELECT b FROM Bob WHERE ID = :id
 REAL: RealBob(1){a=222, b=apple, veiled=17}
@@ -95,5 +89,5 @@ REAL: RealBob(1){a=222, b=apple, veiled=17}
 PIERCED? false
 VEILED-A? true
 VEILED-B? false
-VEILED-VEILED? false
+IS REFLECTIVE VEILED MASKED? false
 ```

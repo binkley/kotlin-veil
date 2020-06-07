@@ -30,8 +30,8 @@ class RealBob(private val ds: DataSource, val id: Int) : Bob {
     override val veiled = 17
 
     override fun equals(other: Any?) = this === other ||
-            other is RealBob &&
-            id == other.id
+        other is RealBob &&
+        id == other.id
 
     override fun hashCode() = hash(this::class, id)
     override fun toString() = "RealBob($id){a=$a, b=$b, veiled=$veiled}"
