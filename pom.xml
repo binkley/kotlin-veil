@@ -11,8 +11,7 @@
 
     <name>kotlin-veil</name>
     <description>
-        Immutable, infinite-precision "BigRational" (ratio, fraction) classes
-        for Kotlin, akin to `BigDecimal` or `BigInteger`
+        An experiment with veiled object on the JVM, ala Его́р Бугае́нко
     </description>
     <url>https://github.com/binkley/kotlin-veil</url>
     <licenses>
