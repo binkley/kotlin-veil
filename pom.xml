@@ -26,8 +26,7 @@
         <url>https://github.com/binkley/kotlin-veil/issues</url>
     </issueManagement>
     <scm>
-        <connection>scm:git:git://github.com/binkley/kotlin-veil
-        </connection>
+        <connection>scm:git:git://github.com/binkley/kotlin-veil</connection>
         <url>https://github.com/binkley/kotlin-veil</url>
     </scm>
 
