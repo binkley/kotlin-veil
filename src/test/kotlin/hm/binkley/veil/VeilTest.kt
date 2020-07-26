@@ -102,15 +102,8 @@ internal class VeilTest {
 }
 
 private fun bobs() = object {
-    /** NB &mdash; IntelliJ incorrectly believes this prop is unused. */
-    @Suppress("unused")
-    val pierceable: Sequence<Bob>
-        get() = bobs(true)
-
-    /** NB &mdash; IntelliJ incorrectly believes this prop is unused. */
-    @Suppress("unused")
-    val unpierceable: Sequence<Bob>
-        get() = bobs(false)
+    val pierceable: Sequence<Bob> get() = bobs(true)
+    val unpierceable: Sequence<Bob> get() = bobs(false)
 
     private fun bobs(pierceable: Boolean) =
         veil<Bob, Int>(

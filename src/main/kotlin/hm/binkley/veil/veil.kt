@@ -7,6 +7,7 @@ import kotlin.reflect.KProperty1
 
 interface Veilable<T> {
     val pierced: Boolean
+
     fun veiled(prop: KProperty1<T, *>): Boolean
 }
 
@@ -16,7 +17,7 @@ inline fun <reified T, ID> veil(
     initialData: Sequence<Map<String, Any?>>,
     idProp: String,
     vararg veiledProps: String,
-    crossinline ctorOfReal: (DataSource, ID) -> T
+    crossinline ctorOfReal: (DataSource, ID) -> T,
 ) = initialData.map {
     @Suppress("UNCHECKED_CAST")
     newProxyInstance(
@@ -42,14 +43,14 @@ class Veiler(
     private val pierceable: Boolean = false,
     private val real: Any,
     private val data: Map<String, Any?>,
-    private vararg val veiledProps: String
+    private vararg val veiledProps: String,
 ) : InvocationHandler {
     private var pierced = false
 
     override fun invoke(
         proxy: Any,
         method: Method,
-        args: Array<out Any?>?
+        args: Array<out Any?>?,
     ): Any? {
         val prop = prop(method.name)
 
