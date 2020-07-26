@@ -13,6 +13,13 @@ A Kotlin demonstration of Yegor's "veiled objects"
 
 See [_Veil Objects to Replace DTOs_](https://www.yegor256.com/2020/05/19/veil-objects.html).
 
+## Build and try
+
+```
+$ ./mvnw clean verify
+$ ./run.sh
+```
+
 ## Notes
 
 As this code is a demonstration, it comes with caveats:
