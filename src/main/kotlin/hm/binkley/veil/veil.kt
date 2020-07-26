@@ -33,10 +33,11 @@ inline fun <reified T, ID> veil(
 }
 
 /**
- * NB &mdash; Access scope is not optimal:
+ * *NB* &mdash; Access scope is not optimal:
  * - JDK proxies require class tokens
  * - [veil] is `inline` so `reified` works, and caller does not need to pass
  * in a class token for the JDK proxy; the code does it for you
+ * - [veil] requires `crossinline` for the lambda constructor
  * - [Veiler] is public because `veil(...)` is inlined (a Kotlin requirement)
  */
 class Veiler(
