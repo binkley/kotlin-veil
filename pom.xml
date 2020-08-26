@@ -248,7 +248,7 @@
                 <configuration>
                     <jdkVersion>${java.version}</jdkVersion>
                     <noJdkLink>true</noJdkLink>
-                    <noStdlibLink>true</noStdlibLink>
+                    <noStdlibLink>false</noStdlibLink>
                 </configuration>
                 <executions>
                     <execution>
