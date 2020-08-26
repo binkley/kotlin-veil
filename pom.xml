@@ -247,8 +247,8 @@
                 <version>${dokka.version}</version>
                 <configuration>
                     <jdkVersion>${java.version}</jdkVersion>
-                    <noJdkLink>true</noJdkLink>
-                    <noStdlibLink>false</noStdlibLink>
+                    <!-- TOOD: Workaround for JDK 11 links -->
+                    <offlineMode>true</offlineMode>
                 </configuration>
                 <executions>
                     <execution>
