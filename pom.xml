@@ -245,6 +245,11 @@
                 <groupId>org.jetbrains.dokka</groupId>
                 <artifactId>dokka-maven-plugin</artifactId>
                 <version>${dokka.version}</version>
+                <configuration>
+                    <jdkVersion>${java.version}</jdkVersion>
+                    <noJdkLink>true</noJdkLink>
+                    <noStdlibLink>true</noStdlibLink>
+                </configuration>
                 <executions>
                     <execution>
                         <phase>pre-site</phase>
