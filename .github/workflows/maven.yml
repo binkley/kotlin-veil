@@ -3,8 +3,8 @@ name: build
 on: [push]
 
 jobs:
-  build: Full build
-    name: 
+  build:
+    name: Builds, verifies, and publishes
     runs-on: ubuntu-latest
 
     steps:
@@ -27,7 +27,7 @@ jobs:
           version: 11
 
       - name: Build and verify
-        run: ./mvnw -C verify
-
-      - name: Create site
-        run: ./mvnw -C site
+        run: >
+          ./mvnw -C
+          -Dorg.slf4j.simpleLogger.defaultLogLevel=INFO
+          verify
