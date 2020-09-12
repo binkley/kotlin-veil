@@ -20,6 +20,11 @@ $ ./mvnw clean verify
 $ ./run.sh
 ```
 
+### Build with CI (Docker)
+```
+$ ./batect build
+```
+
 ## Notes
 
 As this code is a demonstration, it comes with caveats:

@@ -1,0 +1,26 @@
+containers:
+  build-env:
+    image: adoptopenjdk:11-jdk-hotspot
+    volumes:
+      - local: .
+        container: /code
+        options: cached
+      - local: ~/.m2
+        container: /home/container-user/.m2
+        options: cached
+    working_directory: /code
+    run_as_current_user:
+      enabled: true
+      home_directory: /home/container-user
+
+tasks:
+  build:
+    description: Build (and test) the program
+    run:
+      container: build-env
+      command: ./mvnw
+  run:
+    description: Runs the demo program
+    run:
+      container: build-env
+      command: ./run.sh
