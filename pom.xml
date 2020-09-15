@@ -37,7 +37,7 @@
         <dokka.version>1.4.0</dokka.version>
         <java.charset>UTF-8</java.charset>
         <java.version>11</java.version>
-        <junit.version>5.7.0-RC1</junit.version>
+        <junit.version>5.7.0</junit.version>
         <kotlin.compiler.jvmTarget>${java.version}</kotlin.compiler.jvmTarget>
         <kotlin.version>1.4.10</kotlin.version>
         <ktlint-maven-plugin.version>1.5.2</ktlint-maven-plugin.version>
