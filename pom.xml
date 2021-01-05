@@ -32,15 +32,15 @@
 
     <properties>
         <!-- @formatter:off -->
-        <dependency-check-maven.version>6.0.3</dependency-check-maven.version>
-        <detekt-maven-plugin.version>1.11.0</detekt-maven-plugin.version>
-        <dokka.version>1.4.10.2</dokka.version>
+        <dependency-check-maven.version>6.0.4</dependency-check-maven.version>
+        <detekt-maven-plugin.version>1.15.0.1</detekt-maven-plugin.version>
+        <dokka.version>1.4.20</dokka.version>
         <jacoco-maven-plugin.version>0.8.6</jacoco-maven-plugin.version>
         <java.charset>UTF-8</java.charset>
         <java.version>11</java.version>
         <junit.version>5.7.0</junit.version>
         <kotlin.compiler.jvmTarget>${java.version}</kotlin.compiler.jvmTarget>
-        <kotlin.version>1.4.20</kotlin.version>
+        <kotlin.version>1.4.21</kotlin.version>
         <ktlint-maven-plugin.version>1.7.0</ktlint-maven-plugin.version>
         <lombok.version>1.18.16</lombok.version>
         <main.class>hm.binkley.veil.MainKt</main.class>
@@ -60,27 +60,7 @@
         <!-- @formatter:on -->
     </properties>
 
-    <repositories>
-        <repository>
-            <id>bintray.kotlin.eap</id>
-            <name>Bintray Kotlin EAP Repository</name>
-            <url>https://dl.bintray.com/kotlin/kotlin-eap</url>
-        </repository>
-    </repositories>
-
     <pluginRepositories>
-        <pluginRepository>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-            <id>bintray.kotlin.eap</id>
-            <name>Bintray Kotlin EAP Repository</name>
-            <url>https://dl.bintray.com/kotlin/kotlin-eap</url>
-        </pluginRepository>
-
         <pluginRepository>
             <id>jcenter</id>
             <name>JCenter</name>
