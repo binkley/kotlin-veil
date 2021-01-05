@@ -3,13 +3,13 @@
 {
     set -euo pipefail
 
-    # This file is part of batect.
-    # Do not modify this file, it will be overwritten next time you upgrade batect.
+    # This file is part of Batect.
+    # Do not modify this file. It will be overwritten next time you upgrade Batect.
     # You should commit this file to version control alongside the rest of your project. It should not be installed globally.
     # For more information, visit https://github.com/batect/batect.
 
-    VERSION="0.58.4"
-    CHECKSUM="${BATECT_DOWNLOAD_CHECKSUM:-ce1b71f792f61f7228abed6dddc15736622fc0a3a8ed8be06440578a6ac8b43d}"
+    VERSION="0.65.0"
+    CHECKSUM="${BATECT_DOWNLOAD_CHECKSUM:-a27668a8c33aa7a134b21e25a64221015493cbb4df2a90b0616c59acac9fc00b}"
     DOWNLOAD_URL_ROOT=${BATECT_DOWNLOAD_URL_ROOT:-"https://dl.bintray.com/batect/batect"}
     DOWNLOAD_URL=${BATECT_DOWNLOAD_URL:-"$DOWNLOAD_URL_ROOT/$VERSION/bin/batect-$VERSION.jar"}
     QUIET_DOWNLOAD=${BATECT_QUIET_DOWNLOAD:-false}
@@ -38,13 +38,13 @@
     function download() {
         checkForCurl
 
-        echo "Downloading batect version $VERSION from $DOWNLOAD_URL..."
         mkdir -p "$VERSION_CACHE_DIR"
         temp_file=$(mktemp)
 
         if [[ $QUIET_DOWNLOAD == 'true' ]]; then
-            curl --fail --show-error --location --output "$temp_file" "$DOWNLOAD_URL"
+            curl --silent --fail --show-error --location --output "$temp_file" "$DOWNLOAD_URL"
         else
+            echo "Downloading Batect version $VERSION from $DOWNLOAD_URL..."
             curl -# --fail --show-error --location --output "$temp_file" "$DOWNLOAD_URL"
         fi
 
@@ -55,7 +55,7 @@
         local_checksum=$(getLocalChecksum)
 
         if [[ "$local_checksum" != "$CHECKSUM" ]]; then
-            echo "The downloaded version of batect does not have the expected checksum. Delete '$JAR_PATH' and then re-run this script to download it again."
+            echo "The downloaded version of Batect does not have the expected checksum. Delete '$JAR_PATH' and then re-run this script to download it again."
             exit 1
         fi
     }
