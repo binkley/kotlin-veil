@@ -11,16 +11,23 @@
 
 A Kotlin demonstration of Yegor's "veiled objects"
 
-See [_Veil Objects to Replace DTOs_](https://www.yegor256.com/2020/05/19/veil-objects.html).
+See [_Veil Objects to Replace
+DTOs_](https://www.yegor256.com/2020/05/19/veil-objects.html).
 
-## Build and try
+## Try it
 
 ```
-$ ./mvnw clean verify
 $ ./run.sh
 ```
 
+## Build locally
+
+```
+$ ./mvnw -C clean verify
+```
+
 ### Build with CI (Docker)
+
 ```
 $ ./batect build
 ```
@@ -36,15 +43,16 @@ As this code is a demonstration, it comes with caveats:
 ## Features
 
 - Demonstrating "piercing the veil" and "unpierceable veils"
-- Primitive means for reflecting on veiledness by casting to a `Veiled<T>`,
-and using the `pierced` property, or `veiled(prop-ref)` function
+- Primitive means for reflecting on veiledness by casting to a `Veiled<T>`, and
+  using the `pierced` property, or `veiled(prop-ref)` function
 
-One might say, "Use an ORM"!  The point of veiled objects is lighter-weight
-code without the complexity of an ORM.
+One might say, "Use an ORM"!  The point of veiled objects is lighter-weight code
+without the complexity of an ORM.
 
 ## Demonstration
 
 Output of `main` demonstrating veiled, unveiled, and pierced:
+
 ```
 NOTE: Bob has props: a, b, veiled.
 NOTE: Prop veiled is to show that the data value is not masked by Veilable.
