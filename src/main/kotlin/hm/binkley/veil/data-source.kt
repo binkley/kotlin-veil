@@ -21,6 +21,6 @@ interface DataSource {
 internal fun <T, ID> DataSource.fetchProperty(
     table: String,
     id: ID,
-    prop: String
+    prop: String,
 ): T =
     fetch("SELECT $prop FROM $table WHERE ID = :id", id).first()[prop] as T

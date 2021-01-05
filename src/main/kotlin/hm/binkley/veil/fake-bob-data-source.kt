@@ -2,11 +2,11 @@ package hm.binkley.veil
 
 class FakeBobDataSource(
     var rowOneA: Int,
-    private val rowOneB: String?
+    private val rowOneB: String?,
 ) : DataSource {
     override fun fetch(
         query: String,
-        vararg args: Any?
+        vararg args: Any?,
     ): Sequence<Map<String, Any?>> {
         println("FETCHING${args.contentToString()} -> $query")
         return when (query) {
