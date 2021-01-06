@@ -13,7 +13,8 @@ fun main() {
     println()
     println("NOTE: Bob has props: a, b, veiled.")
     println(
-        "NOTE: Prop veiled is to show that the data value is not masked by Veilable."
+        "NOTE: Prop veiled is to show that the data value is not masked " +
+            "by Veilable."
     )
 
     println()
@@ -50,7 +51,8 @@ private fun bobs() = object {
 private fun dumpVeiled(it: Bob, pierceable: Boolean) {
     println()
     println(
-        "== Read veiled, then pierced if pierceable ($pierceable), then underlying real object"
+        "== Read veiled, then pierced if pierceable ($pierceable), then " +
+            "underlying real object"
     )
     println("VEILED: Bob{a=${it.a}, b=${it.b}, veiled=${it.veiled}}")
     println()
