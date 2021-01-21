@@ -9,28 +9,37 @@ on:
       - README.md
 
 jobs:
-  build:
-    name: Full build
+  build-maven:
+    name: Builds and tests for Maven under Batect
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@master
+      - name: Clone repository
+        uses: actions/checkout@master
 
-      - uses: actions/cache@master
+      - name: Restore Batect caches
+        uses: actions/cache@master
         env:
-          cache-name: cache-maven-dependencies
+          cache-name: batect-cache
         with:
-          path: ~/.m2/repository
+          path: ~/.batect
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/batect.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+
+      - name: Restore Maven caches
+        uses: actions/cache@master
+        env:
+          cache-name: maven-cache
+        with:
+          path: ~/.m2
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
             ${{ runner.os }}-build-${{ env.cache-name }}-
             ${{ runner.os }}-build-
             ${{ runner.os }}-
 
-      - name: Set up JDK 11
-        uses: actions/setup-java@master
-        with:
-          version: 11
-
-      - name: Build, verify, and site
-        run: ./mvnw --no-transfer-progress --strict-checksums verify site
+      - name: Build and test with Maven under Batect
+        run: ./batect --permanently-enable-telemetry build
