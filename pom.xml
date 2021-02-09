@@ -32,17 +32,17 @@
 
     <properties>
         <!-- @formatter:off -->
-        <dependency-check-maven.version>6.0.5</dependency-check-maven.version>
+        <dependency-check-maven.version>6.1.0</dependency-check-maven.version>
         <detekt-maven-plugin.version>1.15.0.1</detekt-maven-plugin.version>
         <dokka.version>1.4.20</dokka.version>
         <jacoco-maven-plugin.version>0.8.6</jacoco-maven-plugin.version>
         <java.charset>UTF-8</java.charset>
         <jdk.version>11</jdk.version>
-        <junit.version>5.7.0</junit.version>
+        <junit.version>5.7.1</junit.version>
         <kotlin.compiler.jvmTarget>${jdk.version}</kotlin.compiler.jvmTarget>
         <kotlin.version>1.4.30</kotlin.version>
         <ktlint-maven-plugin.version>1.7.0</ktlint-maven-plugin.version>
-        <lombok.version>1.18.16</lombok.version>
+        <lombok.version>1.18.18</lombok.version>
         <main.class>hm.binkley.veil.MainKt</main.class>
         <maven-assembly-plugin.version>3.3.0</maven-assembly-plugin.version>
         <maven-enforcer-plugin.version>3.0.0-M3</maven-enforcer-plugin.version>
