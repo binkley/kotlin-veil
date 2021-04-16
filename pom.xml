@@ -32,29 +32,29 @@
 
     <properties>
         <!-- @formatter:off -->
-        <dependency-check-maven.version>6.1.2</dependency-check-maven.version>
-        <detekt-maven-plugin.version>1.15.0.1</detekt-maven-plugin.version>
-        <dokka.version>1.4.20</dokka.version>
-        <jacoco-maven-plugin.version>0.8.6</jacoco-maven-plugin.version>
+        <dependency-check-maven.version>6.1.5</dependency-check-maven.version>
+        <detekt-maven-plugin.version>1.16.0</detekt-maven-plugin.version>
+        <dokka.version>1.4.30</dokka.version>
+        <jacoco-maven-plugin.version>0.8.7-SNAPSHOT</jacoco-maven-plugin.version>
         <java.charset>UTF-8</java.charset>
         <jdk.version>11</jdk.version>
-        <junit.version>5.7.1</junit.version>
+        <junit.version>5.8.0-M1</junit.version>
         <kotlin.compiler.jvmTarget>${jdk.version}</kotlin.compiler.jvmTarget>
-        <kotlin.version>1.4.31</kotlin.version>
-        <ktlint-maven-plugin.version>1.7.0</ktlint-maven-plugin.version>
-        <lombok.version>1.18.18</lombok.version>
+        <kotlin.version>1.5.0-RC</kotlin.version>
+        <ktlint-maven-plugin.version>1.9.0</ktlint-maven-plugin.version>
+        <lombok.version>1.18.20</lombok.version>
         <main.class>hm.binkley.veil.MainKt</main.class>
         <maven-assembly-plugin.version>3.3.0</maven-assembly-plugin.version>
         <maven-enforcer-plugin.version>3.0.0-M3</maven-enforcer-plugin.version>
         <maven-javadoc-plugin.version>3.1.1</maven-javadoc-plugin.version>
         <maven-project-info-reports-plugin.version>3.1.1</maven-project-info-reports-plugin.version>
-        <maven-release-plugin.version>3.0.0-M1</maven-release-plugin.version>
+        <maven-release-plugin.version>3.0.0-M4</maven-release-plugin.version>
         <maven-site-plugin.version>3.9.1</maven-site-plugin.version>
         <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
         <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
         <maven-versions-plugin.version>2.8.1</maven-versions-plugin.version>
         <pitest-junit5-plugin.version>0.14</pitest-junit5-plugin.version>
-        <pitest-maven.version>1.5.2</pitest-maven.version>
+        <pitest-maven.version>1.6.4</pitest-maven.version>
         <project.build.sourceEncoding>${java.charset}</project.build.sourceEncoding>
         <project.reporting.outputEncoding>${java.charset}</project.reporting.outputEncoding>
         <!-- @formatter:on -->
@@ -126,6 +126,9 @@
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>versions-maven-plugin</artifactId>
                 <version>${maven-versions-plugin.version}</version>
+                <configuration>
+                    <generateBackupPoms>false</generateBackupPoms>
+                </configuration>
             </plugin>
             <plugin>
                 <artifactId>kotlin-maven-plugin</artifactId>
@@ -205,7 +208,7 @@
                         <excludedClass>${main.class}</excludedClass>
                     </excludedClasses>
                     <!-- TODO: How to make mutation testing happy? -->
-                    <mutationThreshold>60</mutationThreshold>
+                    <mutationThreshold>51</mutationThreshold>
                 </configuration>
                 <executions>
                     <execution>
