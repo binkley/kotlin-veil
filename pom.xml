@@ -35,7 +35,7 @@
         <dependency-check-maven.version>6.1.5</dependency-check-maven.version>
         <detekt-maven-plugin.version>1.16.0</detekt-maven-plugin.version>
         <dokka.version>1.4.30</dokka.version>
-        <jacoco-maven-plugin.version>0.8.7-SNAPSHOT</jacoco-maven-plugin.version>
+        <jacoco-maven-plugin.version>0.8.7</jacoco-maven-plugin.version>
         <java.charset>UTF-8</java.charset>
         <jdk.version>11</jdk.version>
         <junit.version>5.8.0-M1</junit.version>
@@ -362,17 +362,4 @@
             </plugin>
         </plugins>
     </reporting>
-
-    <pluginRepositories>
-        <pluginRepository>
-            <id>Sonatype SNAPSHOT</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </pluginRepository>
-    </pluginRepositories>
 </project>
