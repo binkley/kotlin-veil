@@ -40,7 +40,7 @@
         <jdk.version>11</jdk.version>
         <junit.version>5.8.0-M1</junit.version>
         <kotlin.compiler.jvmTarget>${jdk.version}</kotlin.compiler.jvmTarget>
-        <kotlin.version>1.5.0</kotlin.version>
+        <kotlin.version>1.5.20</kotlin.version>
         <ktlint-maven-plugin.version>1.9.0</ktlint-maven-plugin.version>
         <lombok.version>1.18.20</lombok.version>
         <main.class>hm.binkley.veil.MainKt</main.class>
