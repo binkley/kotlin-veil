@@ -1,6 +1,6 @@
 containers:
   build-env:
-    image: adoptopenjdk:11-jdk-hotspot
+    image: eclipse-temurin:17-jdk-alpine
     run_as_current_user:
       enabled: true
       home_directory: /home/container-user
