@@ -103,7 +103,7 @@
                 <configuration>
                     <rules>
                         <requireMavenVersion>
-                            <version>3.6.3</version>
+                            <version>3.6.4</version>
                         </requireMavenVersion>
                     </rules>
                 </configuration>
@@ -130,6 +130,7 @@
                 <configuration>
                     <args>
                         <arg>-progressive</arg>
+                        <arg>-Werror</arg>
                     </args>
                 </configuration>
                 <executions>

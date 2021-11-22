@@ -91,6 +91,7 @@ class Veiler(
 }
 
 private fun prop(methodName: String) =
-    if (methodName.startsWith("get"))
-        methodName.removePrefix("get").decapitalize()
+    if (methodName.startsWith("get")) methodName
+        .removePrefix("get")
+        .replaceFirstChar { it.lowercase() }
     else methodName
