@@ -23,7 +23,7 @@ $ ./run.sh
 ## Build locally
 
 ```
-$ ./mvnw -C clean verify
+$ ./mvnw clean verify
 ```
 
 ### Build with CI (Docker)
@@ -42,12 +42,12 @@ As this code is a demonstration, it comes with caveats:
 
 ## Features
 
-- Demonstrating "piercing the veil" and "unpierceable veils"
-- Primitive means for reflecting on veiledness by casting to a `Veiled<T>`, and
-  using the `pierced` property, or `veiled(prop-ref)` function
+- Demonstrates "piercing the veil" and "unpierceable veils"
+- JDK reflection on veiledness by casting to a `Veiled<T>`, and using the 
+  `pierced` property, or the `veiled(prop-ref)` function
 
 One might say, "Use an ORM"!  The point of veiled objects is lighter-weight code
-without the complexity of an ORM.
+without the complexity of an ORM.  Contrawise, 
 
 ## Demonstration
 
