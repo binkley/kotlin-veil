@@ -42,7 +42,7 @@
         <kotlin.code.style>official</kotlin.code.style>
         <kotlin.compiler.jvmTarget>${jdk.version}</kotlin.compiler.jvmTarget>
         <kotlin.version>1.6.10</kotlin.version>
-        <ktlint-maven-plugin.version>1.11.0</ktlint-maven-plugin.version>
+        <ktlint-maven-plugin.version>1.11.2</ktlint-maven-plugin.version>
         <lombok.version>1.18.22</lombok.version>
         <main.class>hm.binkley.veil.MainKt</main.class>
         <maven-assembly-plugin.version>3.3.0</maven-assembly-plugin.version>
