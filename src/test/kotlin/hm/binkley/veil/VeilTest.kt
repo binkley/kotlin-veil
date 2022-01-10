@@ -113,6 +113,6 @@ private fun bobs() = object {
             idProp = "id",
             "a"
         ) { ds, id ->
-            RealBob(ds, id)
+            BobFromDataSource(ds, id)
         }
 }
