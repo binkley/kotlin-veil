@@ -32,8 +32,8 @@
 
     <properties>
         <!-- @formatter:off -->
-        <dependency-check-maven.version>6.2.2</dependency-check-maven.version>
-        <detekt-maven-plugin.version>1.18.1.1</detekt-maven-plugin.version>
+        <dependency-check-maven.version>7.0.2</dependency-check-maven.version>
+        <detekt-maven-plugin.version>1.19.1</detekt-maven-plugin.version>
         <dokka.version>1.6.10</dokka.version>
         <jacoco-maven-plugin.version>0.8.7</jacoco-maven-plugin.version>
         <java.charset>UTF-8</java.charset>
@@ -41,21 +41,21 @@
         <junit.version>5.8.2</junit.version>
         <kotlin.code.style>official</kotlin.code.style>
         <kotlin.compiler.jvmTarget>${jdk.version}</kotlin.compiler.jvmTarget>
-        <kotlin.version>1.6.10</kotlin.version>
-        <ktlint-maven-plugin.version>1.11.2</ktlint-maven-plugin.version>
+        <kotlin.version>1.6.20</kotlin.version>
+        <ktlint-maven-plugin.version>1.13.0</ktlint-maven-plugin.version>
         <lombok.version>1.18.22</lombok.version>
         <main.class>hm.binkley.veil.MainKt</main.class>
         <maven-assembly-plugin.version>3.3.0</maven-assembly-plugin.version>
-        <maven-enforcer-plugin.version>3.0.0-M3</maven-enforcer-plugin.version>
+        <maven-enforcer-plugin.version>3.0.0</maven-enforcer-plugin.version>
         <maven-javadoc-plugin.version>3.1.1</maven-javadoc-plugin.version>
-        <maven-project-info-reports-plugin.version>3.1.2</maven-project-info-reports-plugin.version>
-        <maven-release-plugin.version>3.0.0-M4</maven-release-plugin.version>
-        <maven-site-plugin.version>3.9.1</maven-site-plugin.version>
+        <maven-project-info-reports-plugin.version>3.2.2</maven-project-info-reports-plugin.version>
+        <maven-release-plugin.version>3.0.0-M5</maven-release-plugin.version>
+        <maven-site-plugin.version>3.11.0</maven-site-plugin.version>
         <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
         <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
-        <maven-versions-plugin.version>2.8.1</maven-versions-plugin.version>
+        <maven-versions-plugin.version>2.10.0</maven-versions-plugin.version>
         <pitest-junit5-plugin.version>0.15</pitest-junit5-plugin.version>
-        <pitest-maven.version>1.6.7</pitest-maven.version>
+        <pitest-maven.version>1.7.5</pitest-maven.version>
         <project.build.sourceEncoding>${java.charset}</project.build.sourceEncoding>
         <project.reporting.outputEncoding>${java.charset}</project.reporting.outputEncoding>
         <!-- @formatter:on -->
