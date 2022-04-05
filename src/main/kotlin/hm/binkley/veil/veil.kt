@@ -36,9 +36,9 @@ inline fun <reified T, ID> veil(
  * *NB* &mdash; Access scope is not optimal:
  * - JDK proxies require class tokens
  * - [veil] is `inline` so `reified` works, and caller does not need to pass
- * in a class token for the JDK proxy; the code does it for you
+ * in a class token for the JDK proxy: the code does it for you
  * - [veil] requires `crossinline` for the lambda constructor
- * - [Veiler] is public because `veil(...)` is inlined (a Kotlin requirement)
+ * - [Veiler] is `public` because `veil(...)` is inlined (a Kotlin requirement)
  */
 class Veiler(
     private val pierceable: Boolean = false,
@@ -74,9 +74,10 @@ class Veiler(
         }
 
         println("CALLING $method")
-        return method(real, *(args ?: arrayOf())) // Not nice syntax
+        return method(real, *(args ?: arrayOf())) // TODO: Not nice syntax
     }
 
+    @Suppress("PrivatePropertyName")
     private val Method.`belongs to Veilable`
         get() = Veilable::class.java == declaringClass
 
@@ -84,7 +85,7 @@ class Veiler(
         (args?.get(0) as KProperty1<*, *>).name in veiledProps
 
     /**
-     * @todo Cleaner way to combine check for args veiled and the prop itself
+     * @todo How to cleanly combine check for args veiled and the prop itself?
      */
     private val String.veiled get() = !pierced && this in veiledProps
     private val piercing get() = pierceable && !pierced
