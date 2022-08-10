@@ -33,19 +33,19 @@
     <properties>
         <!-- @formatter:off -->
         <dependency-check-maven.version>7.1.1</dependency-check-maven.version>
-        <detekt-maven-plugin.version>1.20.0</detekt-maven-plugin.version>
+        <detekt-maven-plugin.version>1.21.0</detekt-maven-plugin.version>
         <dokka.version>1.7.0</dokka.version>
         <jacoco-maven-plugin.version>0.8.8</jacoco-maven-plugin.version>
         <java.charset>UTF-8</java.charset>
         <jdk.version>17</jdk.version>
-        <junit.version>5.9.0-RC1</junit.version>
+        <junit.version>5.9.0</junit.version>
         <kotlin.code.style>official</kotlin.code.style>
         <kotlin.compiler.jvmTarget>${jdk.version}</kotlin.compiler.jvmTarget>
         <kotlin.version>1.7.10</kotlin.version>
         <ktlint-maven-plugin.version>1.13.1</ktlint-maven-plugin.version>
         <lombok.version>1.18.24</lombok.version>
         <main.class>hm.binkley.veil.MainKt</main.class>
-        <maven-assembly-plugin.version>3.3.0</maven-assembly-plugin.version>
+        <maven-assembly-plugin.version>3.4.2</maven-assembly-plugin.version>
         <maven-enforcer-plugin.version>3.1.0</maven-enforcer-plugin.version>
         <maven-javadoc-plugin.version>3.1.1</maven-javadoc-plugin.version>
         <maven-project-info-reports-plugin.version>3.3.0</maven-project-info-reports-plugin.version>
@@ -55,7 +55,7 @@
         <maven-surefire-plugin.version>3.0.0-M7</maven-surefire-plugin.version>
         <maven-versions-plugin.version>2.11.0</maven-versions-plugin.version>
         <pitest-junit5-plugin.version>1.0.0</pitest-junit5-plugin.version>
-        <pitest-maven.version>1.9.0</pitest-maven.version>
+        <pitest-maven.version>1.9.3</pitest-maven.version>
         <project.build.sourceEncoding>${java.charset}</project.build.sourceEncoding>
         <project.reporting.outputEncoding>${java.charset}</project.reporting.outputEncoding>
         <!-- @formatter:on -->
