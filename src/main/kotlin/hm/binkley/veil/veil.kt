@@ -17,7 +17,7 @@ inline fun <reified T, ID> veil(
     initialData: Sequence<Map<String, Any?>>,
     idProp: String,
     vararg veiledProps: String,
-    crossinline ctorOfReal: (DataSource, ID) -> T,
+    crossinline ctorOfReal: (DataSource, ID) -> T
 ) = initialData.map {
     @Suppress("UNCHECKED_CAST")
     newProxyInstance(
@@ -44,23 +44,25 @@ class Veiler(
     private val pierceable: Boolean = false,
     private val real: Any,
     private val data: Map<String, Any?>,
-    private vararg val veiledProps: String,
+    private vararg val veiledProps: String
 ) : InvocationHandler {
     private var pierced = false
 
     override fun invoke(
         proxy: Any,
         method: Method,
-        args: Array<out Any?>?,
+        args: Array<out Any?>?
     ): Any? {
         val prop = prop(method.name)
 
-        if (method.`belongs to Veilable`) return when (prop) {
-            "pierced" -> pierced
-            "veiled" -> !pierced && argsVeiled(args)
-            else -> error(
-                "Invocation handler out of sync with Veilable: $method"
-            )
+        if (method.`belongs to Veilable`) {
+            return when (prop) {
+                "pierced" -> pierced
+                "veiled" -> !pierced && argsVeiled(args)
+                else -> error(
+                    "Invocation handler out of sync with Veilable: $method"
+                )
+            }
         }
 
         if (prop.veiled) {
@@ -92,7 +94,10 @@ class Veiler(
 }
 
 private fun prop(methodName: String) =
-    if (methodName.startsWith("get")) methodName
-        .removePrefix("get")
-        .replaceFirstChar { it.lowercase() }
-    else methodName
+    if (methodName.startsWith("get")) {
+        methodName
+            .removePrefix("get")
+            .replaceFirstChar { it.lowercase() }
+    } else {
+        methodName
+    }
