@@ -32,7 +32,7 @@
 
     <properties>
         <!-- @formatter:off -->
-        <dependency-check-maven.version>7.3.2</dependency-check-maven.version>
+        <dependency-check-maven.version>7.4.3</dependency-check-maven.version>
         <detekt-maven-plugin.version>1.22.0</detekt-maven-plugin.version>
         <dokka.version>1.7.0</dokka.version>
         <jacoco-maven-plugin.version>0.8.8</jacoco-maven-plugin.version>
@@ -53,9 +53,9 @@
         <maven-site-plugin.version>4.0.0-M1</maven-site-plugin.version>
         <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
         <maven-surefire-plugin.version>3.0.0-M7</maven-surefire-plugin.version>
-        <maven-versions-plugin.version>2.13.0</maven-versions-plugin.version>
+        <maven-versions-plugin.version>2.14.2</maven-versions-plugin.version>
         <pitest-junit5-plugin.version>1.1.0</pitest-junit5-plugin.version>
-        <pitest-maven.version>1.9.11</pitest-maven.version>
+        <pitest-maven.version>1.10.3</pitest-maven.version>
         <project.build.sourceEncoding>${java.charset}</project.build.sourceEncoding>
         <project.reporting.outputEncoding>${java.charset}</project.reporting.outputEncoding>
         <!-- @formatter:on -->
