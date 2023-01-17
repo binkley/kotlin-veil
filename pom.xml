@@ -32,13 +32,13 @@
 
     <properties>
         <!-- @formatter:off -->
-        <dependency-check-maven.version>7.4.3</dependency-check-maven.version>
+        <dependency-check-maven.version>8.0.0</dependency-check-maven.version>
         <detekt-maven-plugin.version>1.22.0</detekt-maven-plugin.version>
         <dokka.version>1.7.0</dokka.version>
         <jacoco-maven-plugin.version>0.8.8</jacoco-maven-plugin.version>
         <java.charset>UTF-8</java.charset>
         <jdk.version>17</jdk.version>
-        <junit.version>5.9.1</junit.version>
+        <junit.version>5.9.2</junit.version>
         <kotlin.code.style>official</kotlin.code.style>
         <kotlin.compiler.jvmTarget>${jdk.version}</kotlin.compiler.jvmTarget>
         <kotlin.version>1.8.0</kotlin.version>
@@ -52,10 +52,10 @@
         <maven-release-plugin.version>3.0.0-M6</maven-release-plugin.version>
         <maven-site-plugin.version>4.0.0-M1</maven-site-plugin.version>
         <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
-        <maven-surefire-plugin.version>3.0.0-M7</maven-surefire-plugin.version>
+        <maven-surefire-plugin.version>3.0.0-M8</maven-surefire-plugin.version>
         <maven-versions-plugin.version>2.14.2</maven-versions-plugin.version>
-        <pitest-junit5-plugin.version>1.1.0</pitest-junit5-plugin.version>
-        <pitest-maven.version>1.10.3</pitest-maven.version>
+        <pitest-junit5-plugin.version>1.1.2</pitest-junit5-plugin.version>
+        <pitest-maven.version>1.10.4</pitest-maven.version>
         <project.build.sourceEncoding>${java.charset}</project.build.sourceEncoding>
         <project.reporting.outputEncoding>${java.charset}</project.reporting.outputEncoding>
         <!-- @formatter:on -->
