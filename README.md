@@ -6,6 +6,7 @@
 
 [![build](https://github.com/binkley/kotlin-veil/workflows/build/badge.svg)](https://github.com/binkley/kotlin-veil/actions)
 [![issues](https://img.shields.io/github/issues/binkley/kotlin-veil.svg)](https://github.com/binkley/kotlin-veil/issues)
+[![pull requests](https://img.shields.io/github/issues-pr/binkley/kotlin-veil.svg)](https://github.com/binkley/kotlin-veil/pulls)
 [![vulnerabilities](https://snyk.io/test/github/binkley/kotlin-veil/badge.svg)](https://snyk.io/test/github/binkley/kotlin-veil)
 [![license](https://img.shields.io/badge/license-Public%20Domain-blue.svg)](http://unlicense.org)
 
