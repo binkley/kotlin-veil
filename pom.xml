@@ -54,6 +54,8 @@
         <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
         <maven-surefire-plugin.version>3.0.0-M8</maven-surefire-plugin.version>
         <maven-versions-plugin.version>2.14.2</maven-versions-plugin.version>
+        <maven-wrapper-plugin.version>3.2.0</maven-wrapper-plugin.version>
+        <maven.version>3.9.0</maven.version>
         <pitest-junit5-plugin.version>1.1.2</pitest-junit5-plugin.version>
         <pitest-maven.version>1.10.4</pitest-maven.version>
         <project.build.sourceEncoding>${java.charset}</project.build.sourceEncoding>
@@ -97,6 +99,15 @@
         <!-- @formatter:on -->
 
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-wrapper-plugin</artifactId>
+                <version>${maven-wrapper-plugin.version}</version>
+                <configuration>
+                    <distributionType>source</distributionType>
+                    <mavenVersion>${maven.version}</mavenVersion>
+                </configuration>
+            </plugin>
             <plugin>
                 <artifactId>maven-enforcer-plugin</artifactId>
                 <version>${maven-enforcer-plugin.version}</version>
