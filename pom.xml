@@ -48,7 +48,7 @@
         <maven-assembly-plugin.version>3.5.0</maven-assembly-plugin.version>
         <maven-enforcer-plugin.version>3.3.0</maven-enforcer-plugin.version>
         <maven-javadoc-plugin.version>3.1.1</maven-javadoc-plugin.version>
-        <maven-project-info-reports-plugin.version>3.4.2</maven-project-info-reports-plugin.version>
+        <maven-project-info-reports-plugin.version>3.4.3</maven-project-info-reports-plugin.version>
         <maven-release-plugin.version>3.0.0</maven-release-plugin.version>
         <maven-site-plugin.version>4.0.0-M7</maven-site-plugin.version>
         <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
