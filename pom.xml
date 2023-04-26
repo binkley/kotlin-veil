@@ -38,7 +38,7 @@
         <jacoco-maven-plugin.version>0.8.9</jacoco-maven-plugin.version>
         <java.charset>UTF-8</java.charset>
         <jdk.version>17</jdk.version>
-        <junit.version>5.9.2</junit.version>
+        <junit.version>5.9.3</junit.version>
         <kotlin.code.style>official</kotlin.code.style>
         <kotlin.compiler.jvmTarget>${jdk.version}</kotlin.compiler.jvmTarget>
         <kotlin.version>1.8.20</kotlin.version>
