@@ -1,8 +1,14 @@
+root = true
+
 [**]
 end_of_line = lf
-max_line_length = 80
+# TODO: Impose max line length
+#max_line_length = 80
 
 [*.{kt,kts}]
+ktlint_standard_filename = disabled
 # Oh, the irony.  IntelliJ insists on sorting java* imports last
-ktlint_disabled_rules=import-ordering, trailing-comma-on-call-site, trailing-comma-on-declaration-site, filename
+ktlint_standard_import-ordering = disabled
+ktlint_standard_trailing-comma-on-call-site = disabled
+ktlint_standard_trailing-comma-on-declaration-site = disabled
 ktlint_code_style = official
