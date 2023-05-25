@@ -43,7 +43,6 @@
         <kotlin.compiler.jvmTarget>${jdk.version}</kotlin.compiler.jvmTarget>
         <kotlin.version>1.8.21</kotlin.version>
         <ktlint-maven-plugin.version>1.16.0</ktlint-maven-plugin.version>
-        <lombok.version>1.18.28</lombok.version>
         <main.class>hm.binkley.veil.MainKt</main.class>
         <maven-assembly-plugin.version>3.6.0</maven-assembly-plugin.version>
         <maven-enforcer-plugin.version>3.3.0</maven-enforcer-plugin.version>
@@ -76,13 +75,6 @@
     </dependencyManagement>
 
     <dependencies>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>${lombok.version}</version>
-            <scope>provided</scope>
-        </dependency>
-
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-stdlib-jdk8</artifactId>
