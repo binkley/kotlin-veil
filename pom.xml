@@ -43,7 +43,7 @@
         <kotlin.compiler.jvmTarget>${jdk.version}</kotlin.compiler.jvmTarget>
         <kotlin.version>1.8.21</kotlin.version>
         <ktlint-maven-plugin.version>1.16.0</ktlint-maven-plugin.version>
-        <lombok.version>1.18.26</lombok.version>
+        <lombok.version>1.18.28</lombok.version>
         <main.class>hm.binkley.veil.MainKt</main.class>
         <maven-assembly-plugin.version>3.6.0</maven-assembly-plugin.version>
         <maven-enforcer-plugin.version>3.3.0</maven-enforcer-plugin.version>
