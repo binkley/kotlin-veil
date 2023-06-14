@@ -32,7 +32,7 @@
 
     <properties>
         <!-- @formatter:off -->
-        <dependency-check-maven.version>8.2.1</dependency-check-maven.version>
+        <dependency-check-maven.version>8.3.1</dependency-check-maven.version>
         <detekt-maven-plugin.version>1.22.0</detekt-maven-plugin.version>
         <dokka.version>1.8.20</dokka.version>
         <jacoco-maven-plugin.version>0.8.10</jacoco-maven-plugin.version>
