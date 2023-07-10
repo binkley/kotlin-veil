@@ -143,7 +143,6 @@
                 <version>${kotlin.version}</version>
                 <configuration>
                     <args>
-                        <arg>-progressive</arg>
                         <arg>-Werror</arg>
                     </args>
                 </configuration>
