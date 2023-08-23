@@ -42,7 +42,7 @@
         <kotlin.code.style>official</kotlin.code.style>
         <kotlin.compiler.jvmTarget>${jdk.version}</kotlin.compiler.jvmTarget>
         <kotlin.version>1.9.0</kotlin.version>
-        <ktlint-maven-plugin.version>1.16.0</ktlint-maven-plugin.version>
+        <ktlint-maven-plugin.version>2.0.0</ktlint-maven-plugin.version>
         <main.class>hm.binkley.veil.MainKt</main.class>
         <maven-assembly-plugin.version>3.6.0</maven-assembly-plugin.version>
         <maven-enforcer-plugin.version>3.4.0</maven-enforcer-plugin.version>
