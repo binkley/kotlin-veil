@@ -3,10 +3,12 @@ name: build
 on:
   push:
     paths-ignore:
-      - README.md
+      - '*.md'
+      - 'images/**'
   pull_request:
     paths-ignore:
-      - README.md
+      - '*.md'
+      - 'images/**'
 
 jobs:
   build-maven:
