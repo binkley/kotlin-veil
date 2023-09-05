@@ -1,5 +1,6 @@
-<a href="LICENSE.md">
-<img src="https://unlicense.org/pd-icon.png" alt="Public Domain" align="right"/>
+<a href="./LICENSE.md">
+<img src="./images/public-domain.svg" alt="Public Domain"
+align="right" width="20%" height="auto"/>
 </a>
 
 # Kotlin Veil
