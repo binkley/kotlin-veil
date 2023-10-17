@@ -35,7 +35,7 @@
         <dependency-check-maven.version>8.4.0</dependency-check-maven.version>
         <detekt-maven-plugin.version>1.23.1</detekt-maven-plugin.version>
         <dokka.version>1.9.0</dokka.version>
-        <jacoco-maven-plugin.version>0.8.10</jacoco-maven-plugin.version>
+        <jacoco-maven-plugin.version>0.8.11</jacoco-maven-plugin.version>
         <java.charset>UTF-8</java.charset>
         <jdk.version>17</jdk.version>
         <junit.version>5.10.0</junit.version>
