@@ -6,42 +6,42 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 
-private const val veiledRowOneA = 2
-private const val piercedRowOneA = 222
-private const val realRowOneB = "apple"
+private const val VEILED_ROW_ONE_A = 2
+private const val PIERCED_ROW_ONE_A = 222
+private const val REAL_ROW_ONE_B = "apple"
 
-private val fakeDs = FakeBobDataSource(-1, realRowOneB)
+private val fakeDs = FakeBobDataSource(-1, REAL_ROW_ONE_B)
 
 internal class VeilTest {
     @Nested
     inner class Veiling {
         @Test
         fun `should veil first time, and stay veiled`() {
-            fakeDs.rowOneA = veiledRowOneA
+            fakeDs.rowOneA = VEILED_ROW_ONE_A
 
             val bobs = bobs().pierceable
             // Sequences are not restartable -- TODO: Use List?
             val bobOne = bobs.first()
 
-            assertEquals(veiledRowOneA, bobOne.a)
+            assertEquals(VEILED_ROW_ONE_A, bobOne.a)
 
-            fakeDs.rowOneA = piercedRowOneA // No effect
+            fakeDs.rowOneA = PIERCED_ROW_ONE_A // No effect
 
-            assertEquals(veiledRowOneA, bobOne.a)
+            assertEquals(VEILED_ROW_ONE_A, bobOne.a)
         }
 
         @Test
         fun `should pierce second time when pierceable`() {
-            fakeDs.rowOneA = veiledRowOneA
+            fakeDs.rowOneA = VEILED_ROW_ONE_A
 
             val bobs = bobs().pierceable
             // Sequences are not restartable -- TODO: Use List?
             val bobOne = bobs.first()
 
-            fakeDs.rowOneA = piercedRowOneA
+            fakeDs.rowOneA = PIERCED_ROW_ONE_A
             bobOne.b // Pierce the veil with an unveiled property
 
-            assertEquals(piercedRowOneA, bobOne.a)
+            assertEquals(PIERCED_ROW_ONE_A, bobOne.a)
         }
 
         @Test
@@ -50,21 +50,21 @@ internal class VeilTest {
             // Sequences are not restartable -- TODO: Use List?
             val bobOne = bobs.first()
 
-            assertEquals(realRowOneB, bobOne.b)
+            assertEquals(REAL_ROW_ONE_B, bobOne.b)
         }
 
         @Test
         fun `should not pierce second time when unpierceable`() {
-            fakeDs.rowOneA = veiledRowOneA
+            fakeDs.rowOneA = VEILED_ROW_ONE_A
 
             val bobs = bobs().unpierceable
             // Sequences are not restartable -- TODO: Use List?
             val bobOne = bobs.first()
 
             bobOne.b // Pierce the veil
-            fakeDs.rowOneA = piercedRowOneA
+            fakeDs.rowOneA = PIERCED_ROW_ONE_A
 
-            assertEquals(veiledRowOneA, bobOne.a)
+            assertEquals(VEILED_ROW_ONE_A, bobOne.a)
         }
     }
 

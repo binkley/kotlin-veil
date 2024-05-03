@@ -32,31 +32,35 @@
 
     <properties>
         <!-- @formatter:off -->
-        <dependency-check-maven.version>9.0.0</dependency-check-maven.version>
-        <detekt-maven-plugin.version>1.23.3.1</detekt-maven-plugin.version>
-        <dokka.version>1.9.10</dokka.version>
-        <jacoco-maven-plugin.version>0.8.11</jacoco-maven-plugin.version>
+        <coverage.branches>66</coverage.branches>
+        <coverage.instructions>50</coverage.instructions>
+        <coverage.lines>42</coverage.lines>
+        <coverage.mutation>49</coverage.mutation>
+        <dependency-check-maven.version>9.1.0</dependency-check-maven.version>
+        <detekt-maven-plugin.version>1.23.5</detekt-maven-plugin.version>
+        <dokka.version>1.9.20</dokka.version>
+        <jacoco-maven-plugin.version>0.8.12</jacoco-maven-plugin.version>
         <java.charset>UTF-8</java.charset>
-        <jdk.version>17</jdk.version>
-        <junit.version>5.10.1</junit.version>
+        <jdk.version>21</jdk.version>
+        <junit.version>5.11.0-M1</junit.version>
         <kotlin.code.style>official</kotlin.code.style>
         <kotlin.compiler.jvmTarget>${jdk.version}</kotlin.compiler.jvmTarget>
-        <kotlin.version>1.9.20</kotlin.version>
-        <ktlint-maven-plugin.version>3.0.0</ktlint-maven-plugin.version>
+        <kotlin.version>2.0.0-RC2</kotlin.version>
+        <ktlint-maven-plugin.version>3.2.0</ktlint-maven-plugin.version>
         <main.class>hm.binkley.veil.MainKt</main.class>
-        <maven-assembly-plugin.version>3.6.0</maven-assembly-plugin.version>
+        <maven-assembly-plugin.version>3.7.1</maven-assembly-plugin.version>
         <maven-enforcer-plugin.version>3.4.1</maven-enforcer-plugin.version>
         <maven-javadoc-plugin.version>3.1.1</maven-javadoc-plugin.version>
         <maven-project-info-reports-plugin.version>3.5.0</maven-project-info-reports-plugin.version>
         <maven-release-plugin.version>3.0.1</maven-release-plugin.version>
-        <maven-site-plugin.version>4.0.0-M11</maven-site-plugin.version>
-        <maven-source-plugin.version>3.3.0</maven-source-plugin.version>
-        <maven-surefire-plugin.version>3.2.2</maven-surefire-plugin.version>
+        <maven-site-plugin.version>4.0.0-M13</maven-site-plugin.version>
+        <maven-source-plugin.version>3.3.1</maven-source-plugin.version>
+        <maven-surefire-plugin.version>3.2.5</maven-surefire-plugin.version>
         <maven-versions-plugin.version>2.16.2</maven-versions-plugin.version>
-        <maven-wrapper-plugin.version>3.2.0</maven-wrapper-plugin.version>
+        <maven-wrapper-plugin.version>3.3.1</maven-wrapper-plugin.version>
         <maven.version>3.9.0</maven.version>
         <pitest-junit5-plugin.version>1.2.1</pitest-junit5-plugin.version>
-        <pitest-maven.version>1.15.3</pitest-maven.version>
+        <pitest-maven.version>1.16.0</pitest-maven.version>
         <project.build.sourceEncoding>${java.charset}</project.build.sourceEncoding>
         <project.reporting.outputEncoding>${java.charset}</project.reporting.outputEncoding>
         <!-- @formatter:on -->
@@ -117,7 +121,7 @@
                 <configuration>
                     <rules>
                         <requireMavenVersion>
-                            <version>3.6.4</version>
+                            <version>${maven.version}</version>
                         </requireMavenVersion>
                     </rules>
                 </configuration>
@@ -165,6 +169,29 @@
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>${jacoco-maven-plugin.version}</version>
+                <configuration>
+                    <rules>
+                        <rule>
+                            <limits>
+                                <limit>
+                                    <counter>LINE</counter>
+                                    <value>COVEREDRATIO</value>
+                                    <minimum>${coverage.lines}%</minimum>
+                                </limit>
+                                <limit>
+                                    <counter>BRANCH</counter>
+                                    <value>COVEREDRATIO</value>
+                                    <minimum>${coverage.branches}%</minimum>
+                                </limit>
+                                <limit>
+                                    <counter>INSTRUCTION</counter>
+                                    <value>COVEREDRATIO</value>
+                                    <minimum>${coverage.instructions}%</minimum>
+                                </limit>
+                            </limits>
+                        </rule>
+                    </rules>
+                </configuration>
                 <executions>
                     <execution>
                         <id>prepare-coverage</id>
@@ -184,21 +211,6 @@
                         <goals>
                             <goal>check</goal>
                         </goals>
-                        <configuration>
-                            <rules>
-                                <rule>
-                                    <limits>
-                                        <limit>
-                                            <!--
-  TODO: Work around issue between JaCoCo and Kotlin 1.4.  JaCoCo is not
-        seeing branches
-                                            -->
-                                            <minimum>42%</minimum>
-                                        </limit>
-                                    </limits>
-                                </rule>
-                            </rules>
-                        </configuration>
                     </execution>
                 </executions>
             </plugin>
@@ -210,12 +222,10 @@
                     <avoidCallsTo>
                         <avoidCallsTo>kotlin.jvm.internal</avoidCallsTo>
                     </avoidCallsTo>
-                    <coverageThreshold>46</coverageThreshold>
                     <excludedClasses>
                         <excludedClass>${main.class}</excludedClass>
                     </excludedClasses>
-                    <!-- TODO: How to make mutation testing happy? -->
-                    <mutationThreshold>51</mutationThreshold>
+                    <mutationThreshold>${coverage.mutation}</mutationThreshold>
                 </configuration>
                 <executions>
                     <execution>

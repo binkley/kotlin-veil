@@ -1,6 +1,6 @@
 containers:
   build-env:
-    image: eclipse-temurin:17-jdk-alpine
+    image: eclipse-temurin:21-jdk-jammy
     run_as_current_user:
       enabled: true
       home_directory: /home/container-user

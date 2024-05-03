@@ -6,7 +6,7 @@ private val pierceableBobs = bobs().pierceable
 private val unpierceableBobs = bobs().unpierceable
 
 fun main() {
-    NOISY = true
+    beNoisy = true
 
     fakeDs.rowOneA = 222
 
